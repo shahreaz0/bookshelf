@@ -1,0 +1,11 @@
+/* =============== */
+/* custom fomantic */
+/* =============== */
+
+.ui.container {
+	margin-top: 1rem !important;
+}
+
+.ui.button.navbar {
+	margin: 0 0.5rem !important;
+}
