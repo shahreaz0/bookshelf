@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const Book = require("../models/Book");
 
 // GET --> /books --> Shows All books
 // POST --> /books --> Create books
