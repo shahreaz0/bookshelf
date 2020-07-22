@@ -1,0 +1,47 @@
+<%- include("./../partials/top") %>
+
+<h1>Books</h1>
+
+<form method="GET">
+    <!-- by title -->
+    <label for="title">by Title</label>
+    <input type="text" name="title" id="title" value="<%= searchOptions.title %>">
+
+    <!-- by author -->
+    <label for="author">by Author</label>
+    <input type="text" name="author" id="author" value="<%= searchOptions.author %>">
+
+    <!-- by language -->
+    <label for="language">by Language</label>
+    <select name="language" id="language">
+        <option value=""><%= searchOptions.language %> </option>
+        <option value="english">English</option>
+        <option value="bengali">Bengali</option>
+    </select>
+
+    <!-- by published after -->
+    <label for="publishAfter">by Publish After</label>
+    <input type="date" name="publishAfter" id="publishAfter" value="<%= searchOptions.publishAfter%>">
+
+    <!-- by published before -->
+    <label for="publishBefore">by Publish Before</label>
+    <input type="date" name="publishBefore" id="publishBefore" value="<%= searchOptions.publishBefore%>">
+
+    <!-- submit -->
+    <input type="submit" value="Search">
+</form>
+
+<h2>Results</h2>
+
+<div class="book-results">
+
+    <% books.forEach(book => { %>
+    <div class="book-results-item">
+        <p><%= book.title %> </p>
+        <img src="<%= book.coverImagePath %>" alt="<%= book.title %>" height="150px" width="100px">
+    </div>
+    <% }) %>
+
+</div>
+
+<%- include("./../partials/bottom") %>
