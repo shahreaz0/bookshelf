@@ -5,6 +5,10 @@ const chalk = require("chalk");
 require("dotenv").config();
 
 // routes requires
+const bookRoutes = require("./routes/books");
+
+// mongodb config
+require("./configs/db");
 
 // express config
 const app = express();
@@ -19,9 +23,12 @@ app.get("/", (req, res) => {
 	res.render("home", { pageTitle: "Bookshelf", path: req.path });
 });
 
+app.use(bookRoutes);
+
 app.get("*", (req, res) => {
 	res.render("404", { pageTitle: "404" });
 });
+
 // server
 const port = process.env.PORT || "3000";
 app.listen(port, () => {
