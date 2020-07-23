@@ -9,3 +9,11 @@
 .ui.button.navbar {
 	margin: 0 0.5rem !important;
 }
+
+.field {
+	margin-bottom: 1rem !important;
+}
+
+.ui .grid {
+	margin-top: 2rem;
+}
