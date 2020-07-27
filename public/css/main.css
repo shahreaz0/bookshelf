@@ -1,5 +1,9 @@
 /*  */
 
+#card__author {
+	color: #333;
+}
+
 /* ================== Scrollbar Styling ================== */
 ::-webkit-scrollbar {
 	background-color: #fff;

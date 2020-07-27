@@ -52,27 +52,25 @@
 
     <% books.forEach(book => { %>
 
-    <div class="sixteen wide mobile eight wide tablet four wide computer column ">
+    <div class="sixteen wide mobile five wide tablet four wide computer column ">
         <div class="ui card centered">
             <div class="content">
                 <div class="right floated meta"><%= book.publishDate.toDateString() %></div>
                 <!-- <img class="ui avatar image"
                 src="https://f0.pngfuel.com/png/299/166/silhouette-of-person-illustration-png-clip-art-thumbnail.png">
             Elliot -->
-                <p><i class="user circle outline icon large"></i> <%= book.author %> </p>
+                <p><i class="user circle outline icon large"></i> <a href="#">username</a> </p>
             </div>
             <div class="image">
                 <img src="<%= book.coverImagePath %>">
             </div>
             <div class="content">
                 <a class="header"><%= book.title %></a>
-                <div class="description">
-                    <%= book.description.substring(0, 15) %>...
-                </div>
+                <span id="card__author">by <%= book.author %> </span>
             </div>
             <div class="extra content">
                 <span class="right floated">
-                    <i class="heart outline like icon"></i> 17 likes
+                    <i class="heart outline like icon"></i>17 likes
                 </span>
                 <i class="comment icon"></i> 3 comments
             </div>
