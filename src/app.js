@@ -10,7 +10,7 @@ const bookRoutes = require("./routes/books");
 // mongodb config
 require("./configs/db");
 
-// express config
+// express configs
 const app = express();
 app.set("views", path.join("views"));
 app.set("view engine", "ejs");
