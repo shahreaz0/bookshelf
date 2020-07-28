@@ -10,7 +10,7 @@
     <!-- column -->
     <div class="sixteen wide mobile fourteen wide tablet twelve wide computer column">
         <!-- Form -->
-        <form class="ui form" action="/books" method="POST" enctype="multipart/form-data">
+        <form class="ui form add-book" action="/books" method="POST" enctype="multipart/form-data">
             <!-- first row 2 fields -->
             <div class="fields">
                 <div class="required field eight wide">
@@ -33,11 +33,11 @@
             <div class="fields">
                 <div class="required field eight wide">
                     <label>Cover Image</label>
-                    <input name="coverImagePath" type="file">
+                    <input name="coverImagePath" type="file" accept="image/*">
                 </div>
                 <div class="required field eight wide">
                     <label>PDF Book</label>
-                    <input name="pdfFile" type="file">
+                    <input name="pdfFile" type="file" accept=".pdf">
                 </div>
             </div>
             <!-- Forth row 2 fields and submit button -->
@@ -56,10 +56,13 @@
                 </div>
                 <div class="field eight wide">
                     <label>&nbsp;&nbsp;&nbsp;</label>
-                    <input type="submit" value="Add" class="ui grey submit button fluid">
+                    <!-- <input type="submit" value="Add" > -->
+                    <button class="ui grey submit button fluid">Add</button>
                 </div>
             </div>
+            <div class="ui error message"></div>
         </form>
     </div>
 </div>
+
 <%- include("./../partials/bottom") %>

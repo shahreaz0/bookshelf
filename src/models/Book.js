@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const bookSchema = mongoose.Schema({
 	title: {
 		type: String,
-		// required: true,
+		required: true,
 		trim: true,
 	},
 	author: {
 		type: String,
-		// required: true,
+		required: true,
 	},
 	description: {
 		type: String,
@@ -16,10 +16,11 @@ const bookSchema = mongoose.Schema({
 	},
 	coverImagePath: {
 		type: String,
-		// required: true,
+		required: true,
 	},
 	pdfPath: {
 		type: String,
+		required: true,
 	},
 	pageNo: {
 		type: Number,
