@@ -112,6 +112,15 @@ router.post("/books", multipleUploads, async (req, res) => {
 		// redirect
 		res.redirect("/books");
 	} catch (error) {
+		fs.unlink(`./public/uploads/img/resized/${coverFilename}`, (error) => {
+			throw error;
+		});
+		fs.unlink(`./public/uploads/img/${coverFilename}`, (error) => {
+			throw error;
+		});
+		fs.unlink(`./public/${pdfPath}`, (error) => {
+			throw error;
+		});
 		console.log(error);
 		res.redirect("/books");
 	}
