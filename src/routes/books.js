@@ -17,7 +17,8 @@ var storage = multer.diskStorage({
 		}
 	},
 	filename: function (req, file, cb) {
-		cb(null, `${Date.now()}-${file.originalname}`);
+		const formattedName = file.originalname.split(" ").join("-");
+		cb(null, `${Date.now()}-${formattedName}`);
 	},
 });
 const upload = multer({
@@ -76,23 +77,23 @@ const multipleUploads = upload.fields([
 ]);
 router.post("/books", multipleUploads, async (req, res) => {
 	try {
-		// if folders is not there, create new folders
-		// fs.access("./public/uploads/img/cover", (error) => {
-		// 	if (error) {
-		// 		fs.mkdirSync("./public/uploads/img/cover", { recursive: true });
-		// 	}
-		// });
+		// if resized folder not there, create
+		fs.access("./public/uploads/img/resized", (error) => {
+			if (error) {
+				fs.mkdirSync("./public/uploads/img/resized");
+			}
+		});
 
 		// image path
-		const { path, originalname } = req.files.coverImagePath[0];
-		const formattedName = originalname.split(" ").join("-"); //replace space with -
-		const coverImagePath = `/uploads/img/resized/${Date.now()}-${formattedName}`;
+		const coverFilename = req.files.coverImagePath[0].filename;
+		const coverImagePath = `/uploads/img/resized/${coverFilename}`;
 
 		// pdf path
-		const { filename } = req.files.pdfFile[0];
-		const pdfPath = `/uploads/pdf/${filename}`;
+		const pdfFilename = req.files.pdfFile[0].filename;
+		const pdfPath = `/uploads/pdf/${pdfFilename}`;
 
 		// resize cover image
+		const { path } = req.files.coverImagePath[0];
 		await sharp(path).resize(250, 400).toFile(`./public${coverImagePath}`);
 
 		// save in the data base
@@ -108,8 +109,6 @@ router.post("/books", multipleUploads, async (req, res) => {
 
 		// save book
 		await book.save();
-		console.log(book);
-
 		// redirect
 		res.redirect("/books");
 	} catch (error) {
