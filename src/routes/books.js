@@ -132,6 +132,15 @@ router.get("/books/new", (req, res) => {
 });
 
 // GET --> /books/:id --> Show individual book in details
+router.get("/books/:id", async (req, res) => {
+	try {
+		const book = await Book.findById(req.params.id);
+		res.render("books/show", { pageTitle: "Show", book });
+	} catch (error) {
+		console.log(error);
+		res.redirect("/books");
+	}
+});
 // PUT --> /books/:id/ --> Edit books
 // GET --> /books/:id/edit --> Show edit book form
 // DELETE --> /books/:id/ --> Delete book
