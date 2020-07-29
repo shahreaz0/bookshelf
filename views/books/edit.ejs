@@ -1,0 +1,68 @@
+<%- include("./../partials/top") %>
+
+
+<h4 class="ui horizontal center aligned divider header">
+    <i class="edit outline icon"></i>
+    Edit Book
+</h4>
+
+<div class="ui grid centered">
+    <!-- column -->
+    <div class="sixteen wide mobile fourteen wide tablet twelve wide computer column">
+        <!-- Form -->
+        <form class="ui form add-book" action="/books" method="POST" enctype="multipart/form-data">
+            <!-- first row 2 fields -->
+            <div class="fields">
+                <div class="required field eight wide">
+                    <label>Title</label>
+                    <input type="text" name="title">
+                </div>
+                <div class="required field eight wide">
+                    <label>Author</label>
+                    <input type="text" name="author">
+                </div>
+            </div>
+            <!-- Second row 1 fields -->
+            <div class="fields">
+                <div class="field sixteen wide">
+                    <label>Description</label>
+                    <textarea rows="3" name="description"></textarea>
+                </div>
+            </div>
+            <!-- Third row 2 fields -->
+            <div class="fields">
+                <div class="required field eight wide">
+                    <label>Cover Image</label>
+                    <input name="coverImagePath" type="file" accept="image/*">
+                </div>
+                <div class="required field eight wide">
+                    <label>PDF Book</label>
+                    <input name="pdfFile" type="file" accept=".pdf">
+                </div>
+            </div>
+            <!-- Forth row 2 fields and submit button -->
+            <div class="fields">
+                <div class="field four wide">
+                    <label>Page No.</label>
+                    <input name="pageNo" type="number" min="1">
+                </div>
+                <div class="field four wide">
+                    <label>Language</label>
+                    <select class="ui dropdown" name="language">
+                        <option value="">Select</option>
+                        <option value="english">English</option>
+                        <option value="bengali">Bengali</option>
+                    </select>
+                </div>
+                <div class="field eight wide">
+                    <label>&nbsp;&nbsp;&nbsp;</label>
+                    <!-- <input type="submit" value="Add" > -->
+                    <button class="ui grey submit button fluid">Save</button>
+                </div>
+            </div>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+</div>
+
+<%- include("./../partials/bottom") %>

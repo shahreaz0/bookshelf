@@ -142,7 +142,18 @@ router.get("/books/:id", async (req, res) => {
 	}
 });
 // PUT --> /books/:id/ --> Edit books
+
 // GET --> /books/:id/edit --> Show edit book form
+router.get("/books/:id/edit", async (req, res) => {
+	try {
+		const book = await Book.findById(req.params.id);
+		res.render("books/edit", { pageTitle: book.title, book });
+	} catch (error) {
+		console.log(error);
+		res.redirect("/books");
+	}
+});
+
 // DELETE --> /books/:id/ --> Delete book
 
 module.exports = router;
