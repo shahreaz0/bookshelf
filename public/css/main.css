@@ -1,5 +1,14 @@
 /*  */
 
+* {
+	box-sizing: border-box;
+}
+
+.custom-button {
+	margin: 5px auto !important;
+	width: 95% !important;
+}
+
 #card__author {
 	color: #333;
 }
