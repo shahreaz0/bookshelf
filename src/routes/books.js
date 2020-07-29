@@ -94,7 +94,7 @@ router.post("/books", multipleUploads, async (req, res) => {
 
 		// resize cover image
 		const { path } = req.files.coverImagePath[0];
-		await sharp(path).resize(220, 350).toFile(`./public${coverImagePath}`);
+		await sharp(path).resize(250, 400).toFile(`./public${coverImagePath}`);
 
 		// save in the data base
 		const book = new Book({
@@ -135,7 +135,7 @@ router.get("/books/new", (req, res) => {
 router.get("/books/:id", async (req, res) => {
 	try {
 		const book = await Book.findById(req.params.id);
-		res.render("books/show", { pageTitle: "Show", book });
+		res.render("books/show", { pageTitle: book.title, book });
 	} catch (error) {
 		console.log(error);
 		res.redirect("/books");
