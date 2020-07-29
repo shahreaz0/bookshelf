@@ -9,7 +9,7 @@
     <div class="five wide column">
         <div class="ui card">
             <div class="image">
-                <img src="<%= book.coverImagePath %>">
+                <img src="<%= book.coverImageUrl %>">
             </div>
             <div class="content">
                 <div class="right floated meta"><%= book.publishDate.toDateString() %></div>
@@ -43,7 +43,7 @@
                 te eam, wisi everti eos ex, eum elitr altera utamur at. Quodsi convenire mnesarchum eu per, quas minimum
                 postulant per id.</p>
 
-            <a class="ui green button labeled submit icon" href="<%= book.pdfPath %> ">
+            <a class="ui green button labeled submit icon" href="<%= book.pdfFileUrl %>">
                 <i class="download icon"></i> Download PDF
             </a>
         </div>

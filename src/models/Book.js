@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const path = require("path");
 
 const bookSchema = mongoose.Schema({
 	title: {
@@ -14,11 +15,11 @@ const bookSchema = mongoose.Schema({
 		type: String,
 		trim: true,
 	},
-	coverImagePath: {
+	coverImageName: {
 		type: String,
 		required: true,
 	},
-	pdfPath: {
+	pdfFileName: {
 		type: String,
 		required: true,
 	},
@@ -32,6 +33,18 @@ const bookSchema = mongoose.Schema({
 		type: Date,
 		default: new Date(),
 	},
+});
+
+bookSchema.virtual("coverImageUrl").get(function () {
+	if (this.coverImageName) {
+		return "\\" + path.join("uploads", "img", "resized", this.coverImageName);
+	}
+});
+
+bookSchema.virtual("pdfFileUrl").get(function () {
+	if (this.pdfFileName) {
+		return "\\" + path.join("uploads", "pdf", this.pdfFileName);
+	}
 });
 
 module.exports = mongoose.model("Book", bookSchema);

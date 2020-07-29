@@ -10,32 +10,32 @@
     <!-- column -->
     <div class="sixteen wide mobile fourteen wide tablet twelve wide computer column">
         <!-- Form -->
-        <form class="ui form add-book" action="/books" method="POST" enctype="multipart/form-data">
+        <form class="ui form" action="/books/<%= book._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
             <!-- first row 2 fields -->
             <div class="fields">
-                <div class="required field eight wide">
+                <div class="field eight wide">
                     <label>Title</label>
-                    <input type="text" name="title">
+                    <input type="text" name="title" value="<%= book.title %> ">
                 </div>
-                <div class="required field eight wide">
+                <div class="field eight wide">
                     <label>Author</label>
-                    <input type="text" name="author">
+                    <input type="text" name="author" value="<%= book.author %> ">
                 </div>
             </div>
             <!-- Second row 1 fields -->
             <div class="fields">
                 <div class="field sixteen wide">
                     <label>Description</label>
-                    <textarea rows="3" name="description"></textarea>
+                    <textarea rows="3" name="description"><%= book.description %> </textarea>
                 </div>
             </div>
             <!-- Third row 2 fields -->
             <div class="fields">
-                <div class="required field eight wide">
+                <div class="field eight wide">
                     <label>Cover Image</label>
                     <input name="coverImagePath" type="file" accept="image/*">
                 </div>
-                <div class="required field eight wide">
+                <div class="field eight wide">
                     <label>PDF Book</label>
                     <input name="pdfFile" type="file" accept=".pdf">
                 </div>
@@ -44,7 +44,7 @@
             <div class="fields">
                 <div class="field four wide">
                     <label>Page No.</label>
-                    <input name="pageNo" type="number" min="1">
+                    <input name="pageNo" type="number" min="1" value="<%= book.pageNo %>">
                 </div>
                 <div class="field four wide">
                     <label>Language</label>

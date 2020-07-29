@@ -17,8 +17,8 @@ var storage = multer.diskStorage({
 		}
 	},
 	filename: function (req, file, cb) {
-		const formattedName = file.originalname.split(" ").join("-");
-		cb(null, `${Date.now()}-${formattedName}`);
+		const formattedName = file.originalname.split(" ").join("_");
+		cb(null, `${Date.now()}_${formattedName}`);
 	},
 });
 const upload = multer({
@@ -31,6 +31,11 @@ const upload = multer({
 		cb(null, true);
 	},
 });
+
+const multipleUploads = upload.fields([
+	{ name: "coverImagePath", maxCount: 1 },
+	{ name: "pdfFile", maxCount: 1 },
+]);
 
 // routes
 
@@ -71,10 +76,7 @@ router.get("/books", async (req, res) => {
 });
 
 // POST --> /books --> Create books
-const multipleUploads = upload.fields([
-	{ name: "coverImagePath", maxCount: 3 },
-	{ name: "pdfFile", maxCount: 3 },
-]);
+
 router.post("/books", multipleUploads, async (req, res) => {
 	try {
 		// if resized folder not there, create
@@ -93,16 +95,16 @@ router.post("/books", multipleUploads, async (req, res) => {
 		const pdfPath = `/uploads/pdf/${pdfFilename}`;
 
 		// resize cover image
-		const { path } = req.files.coverImagePath[0];
-		await sharp(path).resize(250, 400).toFile(`./public${coverImagePath}`);
+		const filePath = req.files.coverImagePath[0].path;
+		await sharp(filePath).resize(250, 400).toFile(`./public${coverImagePath}`);
 
 		// save in the data base
 		const book = new Book({
 			title: req.body.title,
 			author: req.body.author,
 			description: req.body.description,
-			coverImagePath: coverImagePath,
-			pdfPath: pdfPath,
+			coverImageName: coverFilename,
+			pdfFileName: pdfFilename,
 			pageNo: req.body.pageNo,
 			language: req.body.language,
 		});
@@ -112,15 +114,6 @@ router.post("/books", multipleUploads, async (req, res) => {
 		// redirect
 		res.redirect("/books");
 	} catch (error) {
-		fs.unlink(`./public/uploads/img/resized/${coverFilename}`, (error) => {
-			throw error;
-		});
-		fs.unlink(`./public/uploads/img/${coverFilename}`, (error) => {
-			throw error;
-		});
-		fs.unlink(`./public/${pdfPath}`, (error) => {
-			throw error;
-		});
 		console.log(error);
 		res.redirect("/books");
 	}
@@ -141,7 +134,6 @@ router.get("/books/:id", async (req, res) => {
 		res.redirect("/books");
 	}
 });
-// PUT --> /books/:id/ --> Edit books
 
 // GET --> /books/:id/edit --> Show edit book form
 router.get("/books/:id/edit", async (req, res) => {
@@ -151,6 +143,67 @@ router.get("/books/:id/edit", async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		res.redirect("/books");
+	}
+});
+
+// PUT --> /books/:id/ --> Edit books
+
+router.put("/books/:id", multipleUploads, async (req, res) => {
+	try {
+		const book = await Book.findById(req.params.id);
+		if (req.body.title) book.title = req.body.title;
+		if (req.body.author) book.author = req.body.author;
+		if (req.body.description) book.description = req.body.description;
+		if (req.body.pageNo) book.pageNo = req.body.pageNo;
+		if (req.body.language) book.language = req.body.language;
+		if (req.body.publishDate) book.publishDate = req.body.publishDate;
+		if (req.files.coverImagePath) {
+			// delete old file before saving new one
+			const { filename } = req.files.coverImagePath[0];
+
+			const deletePath = path.join("public", "uploads", "img", book.coverImageName);
+			fs.unlink(deletePath, (error) => {
+				if (error) console.log(error);
+			});
+			const deletePathResized = path.join(
+				"public",
+				"uploads",
+				"img",
+				"resized",
+				book.coverImageName,
+			);
+			fs.unlink(deletePathResized, (error) => {
+				if (error) console.log(error);
+			});
+
+			// resize updated file
+			const srcPath = req.files.coverImagePath[0].path;
+			const destPath = path.join("public", "uploads", "img", "resized", filename);
+			await sharp(srcPath).resize(250, 400).toFile(destPath);
+
+			// save new file name
+			book.coverImageName = filename;
+		}
+
+		if (req.files.pdfFile) {
+			const { filename } = req.files.pdfFile[0];
+
+			// delete old file before saving new one
+			const deletePath = path.join("public", "uploads", "pdf", book.pdfFileName);
+			fs.unlink(deletePath, (error) => {
+				if (error) console.log(error);
+			});
+
+			// save new pdf file name
+
+			book.pdfFileName = filename;
+		}
+
+		await book.save();
+		res.redirect("/books/" + req.params.id);
+	} catch (error) {
+		console.log(error);
+		res.redirect("back");
 	}
 });
 
