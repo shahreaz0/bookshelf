@@ -195,7 +195,6 @@ router.put("/books/:id", multipleUploads, async (req, res) => {
 			});
 
 			// save new pdf file name
-
 			book.pdfFileName = filename;
 		}
 
