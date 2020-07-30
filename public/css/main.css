@@ -4,9 +4,14 @@
 	box-sizing: border-box;
 }
 
-.custom-button {
+.book-edit-button,
+#book-delete-form {
 	margin: 5px auto !important;
 	width: 95% !important;
+}
+
+.book-delete-button {
+	width: 100%;
 }
 
 #card__author {

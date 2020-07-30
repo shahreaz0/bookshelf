@@ -147,7 +147,6 @@ router.get("/books/:id/edit", async (req, res) => {
 });
 
 // PUT --> /books/:id/ --> Edit books
-
 router.put("/books/:id", multipleUploads, async (req, res) => {
 	try {
 		const book = await Book.findById(req.params.id);
@@ -207,5 +206,30 @@ router.put("/books/:id", multipleUploads, async (req, res) => {
 });
 
 // DELETE --> /books/:id/ --> Delete book
+router.delete("/books/:id", async (req, res) => {
+	try {
+		const book = await Book.findById(req.params.id);
+
+		const imgDelete = path.join("public", "uploads", "img", book.coverImageName);
+		const resizedDelete = path.join(
+			"public",
+			"uploads",
+			"img",
+			"resized",
+			book.coverImageName,
+		);
+		const pdfDelete = path.join("public", "uploads", "pdf", book.pdfFileName);
+
+		fs.unlink(imgDelete, (error) => console.log(error));
+		fs.unlink(resizedDelete, (error) => console.log(error));
+		fs.unlink(pdfDelete, (error) => console.log(error));
+
+		await book.remove();
+		res.redirect("/books");
+	} catch (error) {
+		console.log(error);
+		res.redirect("/books");
+	}
+});
 
 module.exports = router;

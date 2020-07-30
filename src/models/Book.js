@@ -6,10 +6,13 @@ const bookSchema = mongoose.Schema({
 		type: String,
 		required: true,
 		trim: true,
+		maxlength: 50,
 	},
 	author: {
 		type: String,
 		required: true,
+		trim: true,
+		maxlength: 30,
 	},
 	description: {
 		type: String,
@@ -25,6 +28,7 @@ const bookSchema = mongoose.Schema({
 	},
 	pageNo: {
 		type: Number,
+		minlength: 1,
 	},
 	language: {
 		type: String,
