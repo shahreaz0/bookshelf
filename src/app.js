@@ -35,6 +35,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+//middleware
+app.use((req, res, next) => {
+	res.locals.user = req.user;
+	next();
+});
+
 // routes
 app.get("/", (req, res) => {
 	res.render("home", { pageTitle: "Bookshelf", path: req.path });
