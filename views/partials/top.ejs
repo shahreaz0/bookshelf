@@ -17,9 +17,14 @@
   <div class="ui container">
     <div class="ui small secondary menu stackable">
       <!-- left menu -->
+      <% if (user) { %>
       <a class="active item" href="/">Home</a>
       <a class="active item" href="/books">Books</a>
       <a class="active item" href="/books/new">Add Books</a>
+      <% } else { %>
+      <a class="active item" href="/">Home</a>
+      <a class="active item" href="/books">Books</a>
+      <% } %>
       <!-- right menu -->
       <div class="right menu">
         <div class="item">
