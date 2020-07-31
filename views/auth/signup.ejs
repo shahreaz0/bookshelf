@@ -1,23 +1,59 @@
 <%- include("../partials/top") %>
 
-<h1>Register</h1>
+<h4 class="ui horizontal divider header">
+    <i class="user plus icon"></i>
+    Signup
+</h4>
 
-<form action="/signup" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <input type="text" name="fullName" placeholder="Shahreaz Neeloy">
-    <input type="email" name="email" placeholder="neeloy@me.com" list="defaultEmails">
-    <datalist id="defaultEmails">
-        <option value="jbourne@unknown.net">
-    </datalist>
-    <input type="number" name="age" placeholder="7" min="7" max="100">
-    <select name="gender">
-        <option value="">Select</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-    </select>
-
-    <input type="submit" value="Submit">
-</form>
+<!-- Grid -->
+<div class="ui grid centered">
+    <!-- column -->
+    <div class="sixteen wide mobile fourteen wide tablet twelve wide computer column">
+        <!-- Form -->
+        <form class="ui form signup" action="/signup" method="POST">
+            <div class="two fields">
+                <div class="field required">
+                    <label>Full Name</label>
+                    <input placeholder="Genghis Khan" name="fullName" type="text">
+                </div>
+                <div class="field required">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="user@mail.com">
+                </div>
+            </div>
+            <div class="four fields">
+                <div class="field required">
+                    <label>Username</label>
+                    <input placeholder="random" name="username" type="text">
+                </div>
+                <div class="field required">
+                    <label>Password</label>
+                    <input placeholder="****" name="password" type="password">
+                </div>
+                <div class="field">
+                    <label>Age</label>
+                    <input placeholder="20" name="age" type="number" min="7" max="100">
+                </div>
+                <div class="field">
+                    <label>Gender</label>
+                    <select class="ui dropdown" name="gender">
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="inline field">
+                <div class="ui checkbox">
+                    <input type="checkbox" name="terms">
+                    <label>I agree to the terms and conditions</label>
+                </div>
+            </div>
+            <div class="ui primary submit button">Create</div>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+</div>
 
 <%- include("../partials/bottom") %>
