@@ -1,12 +1,32 @@
 <%- include("../partials/top") %>
 
-<h1>Login</h1>
+<h4 class="ui horizontal divider header">
+    <i class="user plus icon"></i>
+    Login
+</h4>
 
-<form action="/login" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-
-    <input type="submit" value="Submit">
-</form>
+<!-- Grid -->
+<div class="ui grid centered">
+    <!-- column -->
+    <div class="fourteen wide mobile ten wide tablet six wide computer column">
+        <!-- Form -->
+        <form class="ui form login" action="/login" method="POST">
+            <div class="fields">
+                <div class="sixteen wide field required">
+                    <label>Username</label>
+                    <input placeholder="random" name="username" type="text">
+                </div>
+            </div>
+            <div class="fields">
+                <div class="sixteen wide field required">
+                    <label>Password</label>
+                    <input placeholder="****" name="password" type="password">
+                </div>
+            </div>
+            <div class="ui primary submit button fluid">Login</div>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+</div>
 
 <%- include("../partials/bottom") %>

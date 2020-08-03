@@ -94,3 +94,33 @@ $(".ui.form.signup").form({
 		},
 	},
 });
+
+//login form
+
+// signup form
+$(".ui.form.login").form({
+	fields: {
+		username: {
+			identifier: "username",
+			rules: [
+				{
+					type: "empty",
+					prompt: "Enter a username",
+				},
+			],
+		},
+		password: {
+			identifier: "password",
+			rules: [
+				{
+					type: "empty",
+					prompt: "Enter a password",
+				},
+				{
+					type: "minLength[6]",
+					prompt: "Your password must be at least {ruleValue} characters",
+				},
+			],
+		},
+	},
+});
