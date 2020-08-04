@@ -31,9 +31,26 @@ router.post("/books/:id/comments", async (req, res) => {
 	}
 });
 
-// GET /books/:id/comments/:id --> show edit form
+// GET /books/:id/comments/:id/edit --> show edit form
+router.get("/books/:book_id/comments/:comment_id/edit", async (req, res) => {
+	const comment = await Comment.findById(req.params.comment_id);
+	res.render("comments/edit", {
+		pageTitle: "Edit comments",
+		bookId: req.params.book_id,
+		comment,
+	});
+});
 
 // PUT /books/:id/comments/:id --> edit comment
+router.put("/books/:book_id/comments/:comment_id", async (req, res) => {
+	const comment = await Comment.findById(req.params.comment_id);
+
+	if (req.body.content) comment.content = req.body.content;
+
+	await comment.save();
+
+	res.redirect(`/books/${req.params.book_id}`);
+});
 
 // DELETE /books/:id/comments/:id --> delete comment
 
