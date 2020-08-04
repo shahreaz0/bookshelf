@@ -28,7 +28,7 @@ const bookSchema = mongoose.Schema({
 	},
 	pageNo: {
 		type: Number,
-		minlength: 1,
+		min: 1,
 	},
 	language: {
 		type: String,
@@ -37,6 +37,12 @@ const bookSchema = mongoose.Schema({
 		type: Date,
 		default: new Date(),
 	},
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Comment",
+		},
+	],
 });
 
 bookSchema.virtual("coverImageUrl").get(function () {
