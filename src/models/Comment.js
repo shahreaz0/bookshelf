@@ -8,8 +8,10 @@ const commentSchema = mongoose.Schema(
 			trim: true,
 		},
 		author: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "User",
+			type: String,
+		},
+		thumbnail: {
+			type: String,
 		},
 	},
 	{

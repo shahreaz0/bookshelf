@@ -6,6 +6,8 @@ const sharp = require("sharp");
 
 //models
 const Book = require("../models/Book");
+const Comment = require("../models/Comment");
+const User = require("../models/User");
 
 // multer config
 var storage = multer.diskStorage({
@@ -124,10 +126,11 @@ router.get("/books/new", (req, res) => {
 	res.render("books/new", { pageTitle: "Add Books", path: req.path });
 });
 
-// GET --> /books/:id --> Show individual book in details
+// GET --> /books/:id --> Show individual book in details + all comments + comment form
 router.get("/books/:id", async (req, res) => {
 	try {
-		const book = await Book.findById(req.params.id);
+		const book = await Book.findById(req.params.id).populate("comments").exec();
+
 		res.render("books/show", { pageTitle: book.title, book });
 	} catch (error) {
 		console.log(error);

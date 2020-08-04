@@ -7,12 +7,13 @@ const expressSession = require("express-session");
 const passport = require("passport");
 require("dotenv").config();
 
+// mongodb config
+require("./configs/db");
+
 // routes requires
 const bookRoutes = require("./routes/books");
 const authRoutes = require("./routes/auth");
-
-// mongodb config
-require("./configs/db");
+const commentRoutes = require("./routes/comments");
 
 //passport config
 require("./configs/passport");
@@ -48,6 +49,7 @@ app.get("/", (req, res) => {
 
 app.use(authRoutes);
 app.use(bookRoutes);
+app.use(commentRoutes);
 
 app.get("*", (req, res) => {
 	res.render("404", { pageTitle: "404" });
