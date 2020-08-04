@@ -4,9 +4,9 @@
   <%= book.title %>
 </h4>
 
-<div class="ui grid">
+<div class="ui grid ">
   <!-- 1st grid ------------------------------------- -->
-  <div class="five wide column">
+  <div class="sixteen wide mobile five wide tablet five wide computer column">
     <div class="ui card">
       <div class="image">
         <img src="<%= book.coverImageUrl %>">
@@ -34,7 +34,7 @@
   </div>
 
   <!-- 2nd grid ------------------------------------- -->
-  <div class="eleven wide column">
+  <div class="sixteen wide mobile eleven wide tablet eleven wide computer column">
     <!-- author and description section -->
     <div class="ui segments">
       <!-- 1st segment -->
@@ -93,14 +93,16 @@
     <% }) %>
 
     <!-- comment form -->
-    <form class="ui reply form" action="/books/<%= book._id %>/comments" method="POST">
-      <div class="eight wide field">
-        <textarea rows="2" name="content"></textarea>
+    <div class="ui grid">
+      <div class="sixteen wide mobile eight wide computer column">
+        <form class="ui reply form" action="/books/<%= book._id %>/comments" method="POST">
+          <div class="field">
+            <textarea rows="2" name="content"></textarea>
+          </div>
+          <button class="ui grey button">Comment</button>
+        </form>
       </div>
-      <button class="ui grey labeled submit icon button">
-        <i class="icon edit"></i>Comment
-      </button>
-    </form>
+    </div>
   </div>
 
 </div>

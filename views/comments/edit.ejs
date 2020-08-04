@@ -1,10 +1,24 @@
 <%- include("../partials/top") %>
 
-<h1>Edit comments</h1>
+<h1></h1>
+<h4 class="ui horizontal divider header">
+   <i class="center align icon"></i>
+   Edit comments
+</h4>
 
-<form action="/books/<%= bookId%>/comments/<%= comment._id %>?_method=PUT" method="POST">
-    <textarea name="content" cols="30" rows="5"><%= comment.content %></textarea> <br>
-    <input type="submit" value="Submit">
-</form>
+<!-- Grid -->
+<div class="ui grid centered">
+   <!-- column -->
+   <div class="fourteen wide mobile ten wide tablet six wide computer column">
+      <!-- Form -->
+      <form class="ui form" action="/books/<%= bookId%>/comments/<%= comment._id %>?_method=PUT" method="POST">
+         <div class="sixteen wide field">
+            <textarea name="content" rows="2"><%= comment.content %></textarea>
+         </div>
+         <button class="ui primary submit button fluid">Submit</button>
+      </form>
+   </div>
+</div>
+
 
 <%- include("../partials/bottom") %>

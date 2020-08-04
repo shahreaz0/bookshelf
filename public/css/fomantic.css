@@ -17,3 +17,9 @@
 .ui .grid {
 	margin-top: 2rem;
 }
+
+@media only screen and (max-width: 600px) {
+	.ui.card {
+		margin: 0 auto;
+	}
+}
