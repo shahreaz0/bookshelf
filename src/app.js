@@ -1,9 +1,11 @@
 // modules
 const path = require("path");
 const express = require("express");
+const mongoose = require("mongoose");
 const chalk = require("chalk");
 const methodOverride = require("method-override");
 const expressSession = require("express-session");
+const MongoStore = require("connect-mongo")(expressSession);
 const passport = require("passport");
 require("dotenv").config();
 
@@ -15,7 +17,7 @@ const bookRoutes = require("./routes/books");
 const authRoutes = require("./routes/auth");
 const commentRoutes = require("./routes/comments");
 
-//passport config
+// passport config
 require("./configs/passport");
 
 // express configs
@@ -31,12 +33,16 @@ app.use(
 		secret: process.env.SECRET_KEY,
 		resave: false,
 		saveUninitialized: false,
+		store: new MongoStore({
+			mongooseConnection: mongoose.connection,
+			ttl: 7 * 24 * 60 * 60,
+		}),
 	}),
 );
 app.use(passport.initialize());
 app.use(passport.session());
 
-//middleware
+// middleware
 app.use((req, res, next) => {
 	res.locals.user = req.user;
 	next();
