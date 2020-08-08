@@ -22,6 +22,22 @@
 	margin-bottom: 1rem;
 }
 
+#comment-delete-form {
+	display: inline;
+}
+
+#comment-delete-button {
+	border: none;
+	background-color: #fff;
+	color: #aaa;
+	cursor: pointer;
+	padding: 0;
+}
+
+#comment-delete-button:hover {
+	color: #444;
+}
+
 /* ================== Scrollbar Styling ================== */
 ::-webkit-scrollbar {
 	background-color: #fff;

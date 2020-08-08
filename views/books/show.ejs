@@ -90,7 +90,12 @@
           </div>
           <div class="actions">
             <a class="reply" href="/books/<%= book._id %>/comments/<%= comment._id %>/edit">Edit</a>
-            <a class="reply">Delete</a>
+            <form action="/books/<%= book._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST"
+              id="comment-delete-form">
+              <button class="reply" id="comment-delete-button"
+                onclick="return confirm('Click Ok to delete comment.');">Delete</button>
+            </form>
+
           </div>
         </div>
       </div>

@@ -1,7 +1,11 @@
 const router = require("express").Router();
 
+// models
 const Book = require("../models/Book");
 const Comment = require("../models/Comment");
+
+// middleware
+const { isLoggedIn } = require("../configs/middleware");
 
 // GET /books/:id --> shows all comments
 //      --> in show books routes all comments will be shown associated with that book
@@ -10,7 +14,7 @@ const Comment = require("../models/Comment");
 //      --> in show books routes
 
 // POST /books/:id/comments --> add comment
-router.post("/books/:id/comments", async (req, res) => {
+router.post("/books/:id/comments", isLoggedIn, async (req, res) => {
 	try {
 		const book = await Book.findById(req.params.id);
 		const comment = new Comment({
@@ -20,10 +24,8 @@ router.post("/books/:id/comments", async (req, res) => {
 		});
 
 		await comment.save();
-		console.log(comment);
 		book.comments.push(comment);
 		await book.save();
-		console.log(book);
 		res.redirect(`/books/${req.params.id}`);
 	} catch (error) {
 		res.redirect(`/books/${req.params.id}`);
@@ -53,5 +55,12 @@ router.put("/books/:book_id/comments/:comment_id", async (req, res) => {
 });
 
 // DELETE /books/:id/comments/:id --> delete comment
+router.delete("/books/:book_id/comments/:comment_id", async (req, res) => {
+	const comment = await Comment.findById(req.params.comment_id);
+
+	await comment.remove();
+
+	res.redirect(`/books/${req.params.book_id}`);
+});
 
 module.exports = router;
