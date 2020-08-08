@@ -49,10 +49,16 @@
         <a class="ui tag label">No details</a>
         <% } %>
       </div>
+      <div class="ui segment">
+        <h3><%= book.author %></h3>
+      </div>
       <!-- 2nd segment -->
       <div class="ui segment">
-        <h4 class="ui header"><%= book.author %> </h4>
-        <p><%= book.description %></p>
+        <h4 class="ui header"> </h4>
+
+        <div id="book-description">
+          <%- book.description %>
+        </div>
         <a class="ui green button labeled submit icon" href="<%= book.pdfFileUrl %>">
           <i class="download icon"></i> Download PDF
         </a>

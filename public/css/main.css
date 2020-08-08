@@ -18,6 +18,10 @@
 	color: #333;
 }
 
+#book-description {
+	margin-bottom: 1rem;
+}
+
 /* ================== Scrollbar Styling ================== */
 ::-webkit-scrollbar {
 	background-color: #fff;
