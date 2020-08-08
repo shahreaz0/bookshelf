@@ -13,10 +13,8 @@
       </div>
       <div class="content">
         <div class="right floated meta"><%= book.publishDate.toDateString() %></div>
-        <!-- <img class="ui avatar image"
-                src="https://f0.pngfuel.com/png/299/166/silhouette-of-person-illustration-png-clip-art-thumbnail.png">
-            Elliot -->
-        <p><i class="user circle outline icon large"></i> <a href="#">username</a> </p>
+        <img class="ui avatar image" src="<%= book.creator.thumbnail %> ">
+        <a href="#"><%= book.creator.username %> </a>
       </div>
 
       <!-- edit button -->

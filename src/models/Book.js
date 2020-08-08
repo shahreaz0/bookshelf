@@ -43,6 +43,10 @@ const bookSchema = mongoose.Schema({
 			ref: "Comment",
 		},
 	],
+	creator: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
+	},
 });
 
 bookSchema.virtual("coverImageUrl").get(function () {

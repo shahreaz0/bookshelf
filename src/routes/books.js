@@ -13,7 +13,7 @@ const User = require("../models/User");
 const { isLoggedIn } = require("../configs/middleware");
 
 // multer config
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		if (file.originalname.match(/\.(jpg|jpeg|png|webp)$/i)) {
 			cb(null, path.join("public", "uploads", "img"));
@@ -66,7 +66,7 @@ router.get("/books", async (req, res) => {
 		}
 
 		// find
-		const books = await query.exec();
+		const books = await query.populate("creator").exec();
 
 		// render
 		res.render("books/index", {
@@ -111,6 +111,7 @@ router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 			pdfFileName: pdfFilename,
 			pageNo: req.body.pageNo,
 			language: req.body.language,
+			creator: req.user._id,
 		});
 
 		// save book
@@ -131,7 +132,10 @@ router.get("/books/new", isLoggedIn, (req, res) => {
 // GET --> /books/:id --> Show individual book in details + all comments + comment form
 router.get("/books/:id", async (req, res) => {
 	try {
-		const book = await Book.findById(req.params.id).populate("comments").exec();
+		const book = await Book.findById(req.params.id)
+			.populate("comments")
+			.populate("creator")
+			.exec();
 
 		res.render("books/show", { pageTitle: book.title, book });
 	} catch (error) {
