@@ -9,6 +9,9 @@ const Book = require("../models/Book");
 const Comment = require("../models/Comment");
 const User = require("../models/User");
 
+// middleware
+const { isLoggedIn } = require("../configs/middleware");
+
 // multer config
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -78,8 +81,7 @@ router.get("/books", async (req, res) => {
 });
 
 // POST --> /books --> Create books
-
-router.post("/books", multipleUploads, async (req, res) => {
+router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 	try {
 		// if resized folder not there, create
 		fs.access("./public/uploads/img/resized", (error) => {
@@ -122,7 +124,7 @@ router.post("/books", multipleUploads, async (req, res) => {
 });
 
 // GET --> /books/new --> Show create book form
-router.get("/books/new", (req, res) => {
+router.get("/books/new", isLoggedIn, (req, res) => {
 	res.render("books/new", { pageTitle: "Add Books", path: req.path });
 });
 

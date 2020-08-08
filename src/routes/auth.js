@@ -4,11 +4,14 @@ const passport = require("passport");
 // models
 const User = require("../models/User");
 
-router.get("/signup", (req, res) => {
+// middleware
+const { ifLoggedIn } = require("../configs/middleware");
+
+router.get("/signup", ifLoggedIn, (req, res) => {
 	res.render("auth/signup", { pageTitle: "Signup" });
 });
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", ifLoggedIn, async (req, res) => {
 	try {
 		const existedUser = await User.find({ username: req.body.username });
 		if (existedUser.length === 1) throw new Error("username already used.");
@@ -27,12 +30,13 @@ router.post("/signup", async (req, res) => {
 	}
 });
 
-router.get("/login", (req, res) => {
+router.get("/login", ifLoggedIn, (req, res) => {
 	res.render("auth/login", { pageTitle: "Login" });
 });
 
 router.post(
 	"/login",
+	ifLoggedIn,
 	passport.authenticate("local", {
 		successRedirect: "/books",
 		successMessage: "You are logged in.",
