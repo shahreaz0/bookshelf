@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const expressSession = require("express-session");
 const MongoStore = require("connect-mongo")(expressSession);
 const passport = require("passport");
+const formatDistance = require("date-fns/formatDistance");
 require("dotenv").config();
 
 // mongodb config
@@ -45,6 +46,9 @@ app.use(passport.session());
 // middleware
 app.use((req, res, next) => {
 	res.locals.user = req.user;
+	res.locals.dateFormat = (date) => {
+		return formatDistance(new Date(), date, { addSuffix: true });
+	};
 	next();
 });
 
