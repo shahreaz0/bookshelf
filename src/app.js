@@ -18,9 +18,6 @@ const bookRoutes = require("./routes/books");
 const authRoutes = require("./routes/auth");
 const commentRoutes = require("./routes/comments");
 
-// passport config
-require("./configs/passport");
-
 // express configs
 const app = express();
 app.set("views", path.join("views"));
@@ -40,8 +37,12 @@ app.use(
 		}),
 	}),
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+// passport config
+require("./configs/passport");
 
 // middleware
 app.use((req, res, next) => {

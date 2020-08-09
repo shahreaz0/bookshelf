@@ -7,6 +7,7 @@ const User = require("../models/User");
 // middleware
 const { ifLoggedIn } = require("../configs/middleware");
 
+// passport-local routes
 router.get("/signup", ifLoggedIn, (req, res) => {
 	res.render("auth/signup", { pageTitle: "Signup" });
 });
@@ -46,6 +47,20 @@ router.post(
 	(req, res) => {},
 );
 
+// passport-google-oauth20 routes
+//passport-google-oauth20
+router.get(
+	"/auth/google",
+	passport.authenticate("google", {
+		scope: ["profile", "email"],
+	}),
+);
+
+router.get("/auth/google/cb", passport.authenticate("google"), (req, res) => {
+	res.redirect("/books");
+});
+
+// logout
 router.get("/logout", (req, res) => {
 	req.logOut();
 	res.redirect("/books");
