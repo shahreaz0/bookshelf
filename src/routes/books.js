@@ -10,7 +10,7 @@ const Comment = require("../models/Comment");
 const User = require("../models/User");
 
 // middleware
-const { isLoggedIn } = require("../configs/middleware");
+const { isLoggedIn, isBookOwner } = require("../configs/middleware");
 
 // multer config
 const storage = multer.diskStorage({
@@ -145,7 +145,7 @@ router.get("/books/:id", async (req, res) => {
 });
 
 // GET --> /books/:id/edit --> Show edit book form
-router.get("/books/:id/edit", async (req, res) => {
+router.get("/books/:id/edit", isBookOwner, async (req, res) => {
 	try {
 		const book = await Book.findById(req.params.id);
 		res.render("books/edit", { pageTitle: book.title, book });
@@ -156,7 +156,7 @@ router.get("/books/:id/edit", async (req, res) => {
 });
 
 // PUT --> /books/:id/ --> Edit books
-router.put("/books/:id", multipleUploads, async (req, res) => {
+router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 	try {
 		const book = await Book.findById(req.params.id);
 		if (req.body.title) book.title = req.body.title;
@@ -215,7 +215,7 @@ router.put("/books/:id", multipleUploads, async (req, res) => {
 });
 
 // DELETE --> /books/:id/ --> Delete book
-router.delete("/books/:id", async (req, res) => {
+router.delete("/books/:id", isBookOwner, async (req, res) => {
 	try {
 		const book = await Book.findById(req.params.id);
 

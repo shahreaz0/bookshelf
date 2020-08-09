@@ -17,6 +17,9 @@
         <a href="#"><%= book.creator.username %> </a>
       </div>
 
+      <!-- dynamic edit and delete button -->
+      <% if (user && book.creator.equals(user._id)) { %>
+
       <!-- edit button -->
       <a class="ui button teal book-edit-button" href="/books/<%= book._id %>/edit">
         <i class="edit outline icon"></i> Edit
@@ -28,6 +31,9 @@
           <i class="trash alternate outline icon"></i> Delete
         </button>
       </form>
+
+      <% } %>
+
     </div>
   </div>
 
@@ -87,12 +93,17 @@
             <%= comment.content %>
           </div>
           <div class="actions">
+
+            <% if (user && comment.author === user.username) { %>
+
             <a class="reply" href="/books/<%= book._id %>/comments/<%= comment._id %>/edit">Edit</a>
             <form action="/books/<%= book._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST"
               id="comment-delete-form">
               <button class="reply" id="comment-delete-button"
                 onclick="return confirm('Click Ok to delete comment.');">Delete</button>
             </form>
+
+            <% } %>
 
           </div>
         </div>
@@ -102,6 +113,8 @@
     <% }) %>
 
     <!-- comment form -->
+    <% if (user) { %>
+
     <div class="ui grid">
       <div class="sixteen wide mobile eight wide computer column">
         <form class="ui reply form" action="/books/<%= book._id %>/comments" method="POST">
@@ -112,6 +125,9 @@
         </form>
       </div>
     </div>
+
+    <% } %>
+
   </div>
 
 </div>

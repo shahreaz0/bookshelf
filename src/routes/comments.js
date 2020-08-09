@@ -5,7 +5,7 @@ const Book = require("../models/Book");
 const Comment = require("../models/Comment");
 
 // middleware
-const { isLoggedIn } = require("../configs/middleware");
+const { isLoggedIn, isCommentOwner } = require("../configs/middleware");
 
 // GET /books/:id --> shows all comments
 //      --> in show books routes all comments will be shown associated with that book
@@ -34,17 +34,21 @@ router.post("/books/:id/comments", isLoggedIn, async (req, res) => {
 });
 
 // GET /books/:id/comments/:id/edit --> show edit form
-router.get("/books/:book_id/comments/:comment_id/edit", async (req, res) => {
-	const comment = await Comment.findById(req.params.comment_id);
-	res.render("comments/edit", {
-		pageTitle: "Edit comments",
-		bookId: req.params.book_id,
-		comment,
-	});
-});
+router.get(
+	"/books/:book_id/comments/:comment_id/edit",
+	isCommentOwner,
+	async (req, res) => {
+		const comment = await Comment.findById(req.params.comment_id);
+		res.render("comments/edit", {
+			pageTitle: "Edit comments",
+			bookId: req.params.book_id,
+			comment,
+		});
+	},
+);
 
 // PUT /books/:id/comments/:id --> edit comment
-router.put("/books/:book_id/comments/:comment_id", async (req, res) => {
+router.put("/books/:book_id/comments/:comment_id", isCommentOwner, async (req, res) => {
 	const comment = await Comment.findById(req.params.comment_id);
 
 	if (req.body.content) comment.content = req.body.content;
@@ -55,12 +59,16 @@ router.put("/books/:book_id/comments/:comment_id", async (req, res) => {
 });
 
 // DELETE /books/:id/comments/:id --> delete comment
-router.delete("/books/:book_id/comments/:comment_id", async (req, res) => {
-	const comment = await Comment.findById(req.params.comment_id);
+router.delete(
+	"/books/:book_id/comments/:comment_id",
+	isCommentOwner,
+	async (req, res) => {
+		const comment = await Comment.findById(req.params.comment_id);
 
-	await comment.remove();
+		await comment.remove();
 
-	res.redirect(`/books/${req.params.book_id}`);
-});
+		res.redirect(`/books/${req.params.book_id}`);
+	},
+);
 
 module.exports = router;
