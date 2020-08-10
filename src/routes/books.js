@@ -1,48 +1,18 @@
 const router = require("express").Router();
 const path = require("path");
 const fs = require("fs");
-const multer = require("multer");
 const sharp = require("sharp");
 
 //models
 const Book = require("../models/Book");
-const Comment = require("../models/Comment");
-const User = require("../models/User");
 
 // middleware
 const { isLoggedIn, isBookOwner } = require("../configs/middleware");
 
-// multer config
-const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		if (file.originalname.match(/\.(jpg|jpeg|png|webp)$/i)) {
-			cb(null, path.join("public", "uploads", "img"));
-		} else if (file.originalname.match(/\.pdf$/i)) {
-			cb(null, path.join("public", "uploads", "pdf"));
-		}
-	},
-	filename: function (req, file, cb) {
-		const formattedName = file.originalname.split(" ").join("_");
-		cb(null, `${Date.now()}_${formattedName}`);
-	},
-});
-const upload = multer({
-	storage: storage,
-	limits: 100000,
-	fileFilter(req, file, cb) {
-		if (!file.originalname.match(/\.(jpg|jpeg|png|webp|pdf)$/i)) {
-			cb(new Error("File type not allowed."));
-		}
-		cb(null, true);
-	},
-});
+// file upload
+const multipleUploads = require("../configs/fileUpload");
 
-const multipleUploads = upload.fields([
-	{ name: "coverImagePath", maxCount: 1 },
-	{ name: "pdfFile", maxCount: 1 },
-]);
-
-// routes
+// routes -------------------------->
 
 // GET --> /books --> Shows All books
 router.get("/books", async (req, res) => {

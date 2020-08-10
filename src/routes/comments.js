@@ -8,10 +8,10 @@ const Comment = require("../models/Comment");
 const { isLoggedIn, isCommentOwner } = require("../configs/middleware");
 
 // GET /books/:id --> shows all comments
-//      --> in show books routes all comments will be shown associated with that book
+//      --> in show books route, all comments will be shown associated with that book
 
 // GET /books/:id --> shows form
-//      --> in show books routes
+//      --> in show books route, add comment form exists
 
 // POST /books/:id/comments --> add comment
 router.post("/books/:id/comments", isLoggedIn, async (req, res) => {

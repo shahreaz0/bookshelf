@@ -4,14 +4,17 @@ const express = require("express");
 const mongoose = require("mongoose");
 const chalk = require("chalk");
 const methodOverride = require("method-override");
-const expressSession = require("express-session");
-const MongoStore = require("connect-mongo")(expressSession);
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const formatDistance = require("date-fns/formatDistance");
 require("dotenv").config();
 
 // mongodb config
 require("./configs/db");
+
+// passport config
+require("./configs/passport");
 
 // routes requires
 const bookRoutes = require("./routes/books");
@@ -22,13 +25,12 @@ const commentRoutes = require("./routes/comments");
 const app = express();
 app.set("views", path.join("views"));
 app.set("view engine", "ejs");
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join("public")));
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(
-	expressSession({
-		secret: process.env.SECRET_KEY,
+	session({
+		secret: process.env.COOKIE_SECRET_KEY,
 		resave: false,
 		saveUninitialized: false,
 		store: new MongoStore({
@@ -37,14 +39,10 @@ app.use(
 		}),
 	}),
 );
-
 app.use(passport.initialize());
 app.use(passport.session());
 
-// passport config
-require("./configs/passport");
-
-// middleware
+// ejs middleware
 app.use((req, res, next) => {
 	res.locals.user = req.user;
 	res.locals.dateFormat = (date) => {
@@ -67,7 +65,7 @@ app.get("*", (req, res) => {
 });
 
 // server
-const port = process.env.PORT || "3000";
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
 	console.log(chalk.blue("====================="));
 	console.log(chalk.bold(`http://localhost:${chalk.bold.red(port)}`));

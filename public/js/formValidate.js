@@ -96,8 +96,6 @@ $(".ui.form.signup").form({
 });
 
 //login form
-
-// signup form
 $(".ui.form.login").form({
 	fields: {
 		username: {

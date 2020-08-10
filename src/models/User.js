@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema(
 		},
 		thumbnail: {
 			type: String,
-			default: "https://tinyurl.com/y6qo86km",
+			default: "https://image.flaticon.com/icons/svg/758/758669.svg",
 		},
 	},
 	{
