@@ -1,5 +1,62 @@
-<%- include("partials/top") %>
+<!DOCTYPE html>
+<html lang="en">
 
-<p>Welcome to <%= pageTitle %></p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelf</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.css"
+        integrity="sha512-8M8By+q+SldLyFJbybaHoAPD6g07xyOcscIOQEypDzBS+sTde5d6mlK2ANIZPnSyxZUqJfCNuaIvjBUi8/RS0w=="
+        crossorigin="anonymous" />
 
-<%- include("partials/bottom") %>
+    <style>
+        .section {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align: center;
+            font-size: 100px;
+            color: #fff;
+            font-weight: bolder;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="fullpage">
+        <div class="section"><a href="/books">Book</a></div>
+        <div class="section">Movie</div>
+        <div class="section">Food</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.js"
+        integrity="sha512-Gx/C4x1qubng2MWpJIxTPuWch9O88dhFFfpIl3WlqH0jPHtCiNdYsmJBFX0q5gIzFHmwkPzzYTlZC/Q7zgbwCw=="
+        crossorigin="anonymous"></script>
+    <script>
+        new fullpage('#fullpage', {
+            //options here
+            loopTop: true,
+            loopBottom: true,
+            autoScrolling: true,
+            scrollHorizontally: true,
+            anchors: ['firstPage', 'secondPage', "thirdPage"],
+            navigation: true,
+            navigationPosition: 'right',
+
+            //Design
+            controlArrows: true,
+            verticalCentered: true,
+            sectionsColor: ['#f65058ff', '#fbde44ff', '#28334aff'],
+
+        });
+
+        //methods
+        fullpage_api.setAllowScrolling(true);
+    </script>
+</body>
+
+</html>
