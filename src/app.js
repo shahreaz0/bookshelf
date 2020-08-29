@@ -10,16 +10,17 @@ const passport = require("passport");
 const formatDistance = require("date-fns/formatDistance");
 require("dotenv").config();
 
+// routes requires
+const bookRoutes = require("./routes/books");
+const authRoutes = require("./routes/auth");
+const commentRoutes = require("./routes/comments");
+const profileRoutes = require("./routes/profile");
+
 // mongodb config
 require("./configs/db");
 
 // passport config
 require("./configs/passport");
-
-// routes requires
-const bookRoutes = require("./routes/books");
-const authRoutes = require("./routes/auth");
-const commentRoutes = require("./routes/comments");
 
 // express configs
 const app = express();
@@ -59,6 +60,7 @@ app.get("/", (req, res) => {
 app.use(authRoutes);
 app.use(bookRoutes);
 app.use(commentRoutes);
+app.use(profileRoutes);
 
 app.get("*", (req, res) => {
 	res.render("404", { pageTitle: "404" });

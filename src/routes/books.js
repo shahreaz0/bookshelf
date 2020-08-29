@@ -5,6 +5,7 @@ const sharp = require("sharp");
 
 //models
 const Book = require("../models/Book");
+const User = require("../models/User");
 
 // middleware
 const { isLoggedIn, isBookOwner } = require("../configs/middleware");
@@ -83,9 +84,14 @@ router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 			language: req.body.language,
 			creator: req.user._id,
 		});
-
 		// save book
 		await book.save();
+
+		// save books Id in user model
+		const user = await User.findById(req.user._id);
+		user.posts.push(book);
+		await user.save();
+
 		// redirect
 		res.redirect("/books");
 	} catch (error) {

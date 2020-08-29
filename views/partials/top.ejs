@@ -32,7 +32,7 @@
       <div class="right menu">
         <div class="item">
           <% if (user) { %>
-          <a class="ui grey basic button navbar" href="#"><%= user.fullName %> </a>
+          <a class="ui grey basic button navbar" href="/profile"><%= user.fullName %> </a>
           <a class="ui grey basic button navbar" href="/logout">Logout</a>
           <% } else { %>
           <a class="ui grey button navbar" href="/signup">Sign Up</a>

@@ -32,6 +32,12 @@ const userSchema = mongoose.Schema(
 			type: String,
 			default: "https://image.flaticon.com/icons/svg/758/758669.svg",
 		},
+		posts: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Book",
+			},
+		],
 	},
 	{
 		timestamps: true,
