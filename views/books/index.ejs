@@ -49,20 +49,30 @@
   Books
 </h4>
 
+<!-- Show books section -->
+
+<!-- pass backend data to frontend  -->
+<span id="length" data-length=<%= books.length %>></span>
 <div class="ui centered grid container">
 
-  <% books.forEach(book => { %>
+  <% books.forEach((book, index) => { %>
 
-  <div class="sixteen wide mobile five wide tablet four wide computer column ">
+  <div class="sixteen wide mobile seven wide tablet four wide computer column">
     <div class="ui card centered link">
       <div class="content">
         <div class="right floated meta"><%= dateFormat(book.publishDate) %></div>
-        <img class="ui avatar image" src="<%= book.creator.thumbnail %> ">
-        <a href="#"><%= book.creator.username %> </a>
+        <img class="ui avatar image" src="<%= book.creator.thumbnail %>">
+
+        <!-- pass backend data to frontend  -->
+        <span id="tooltip<%= index %>" data-tooltip=<%= book.creator.username %>></span>
+
+        <a id="tooltip<%= index %>" href="#"><%= book.creator.username.substring(0, 8) %>... </a>
       </div>
+
       <div class="image">
         <img src="<%= book.coverImageUrl %>">
       </div>
+
       <div class="content">
         <a class="header" href="/books/<%= book._id %>"> <%= book.title %> </a>
         <span id="card__author">by <%= book.author %> </span>
