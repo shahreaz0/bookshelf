@@ -66,7 +66,8 @@
         <!-- pass backend data to frontend  -->
         <span id="tooltip<%= index %>" data-tooltip=<%= book.creator.username %>></span>
 
-        <a id="tooltip<%= index %>" href="#"><%= book.creator.username.substring(0, 8) %>... </a>
+        <a id="tooltip<%= index %>" href="/profile/<%= book.creator._id %>">
+          <%= book.creator.username.substring(0, 8) %>... </a>
       </div>
 
       <div class="image">

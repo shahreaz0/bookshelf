@@ -1,10 +1,10 @@
 <%- include("../partials/top") %>
 
-<h1><%= user.fullName %> </h1>
+<h1><%= userProfile.fullName %> </h1>
 
-<p>Dashboard</p>
+<h3>All books uploaded by <%= userProfile.fullName %></h3>
 
-<table class="ui celled table unstackable">
+<table class="ui green table unstackable">
     <thead>
         <tr>
             <th>Title</th>
@@ -13,11 +13,14 @@
         </tr>
     </thead>
     <tbody>
-        <% user.posts.forEach(post => { %>
+        <% userProfile.posts.forEach(post => { %>
 
         <tr>
             <td data-label="Title"><%= post.title %> </td>
             <td data-label="Status">Public</td>
+
+            <% if (user && post.creator.equals(user._id)) { %>
+
             <td data-label="Actions">
                 <a class="ui button teal" href="/books/<%= post._id%>/edit">
                     <i class="edit outline icon"></i> Edit
@@ -30,6 +33,15 @@
                 </form>
 
             </td>
+
+            <% }  else { %>
+            <td data-label="Actions">
+                <a class="ui green button" href="<%= post.pdfFileUrl %>">
+                    <i class="arrow down icon"></i> Download PDF
+                </a>
+            </td>
+            <% }  %>
+
         </tr>
 
         <% }) %>
