@@ -10,7 +10,7 @@ router.get("/profile/:id", async (req, res) => {
 	try {
 		const user = await User.findById(req.params.id).populate("posts").exec();
 
-		res.render("profile/index", { pageTitle: "Profile", userProfile: user });
+		res.render("profile/index", { pageTitle: user.fullName, userProfile: user });
 	} catch (error) {
 		console.log("profile.js line 13", error);
 		res.send({ error });

@@ -37,6 +37,11 @@ const bookSchema = mongoose.Schema({
 		type: Date,
 		default: new Date(),
 	},
+	status: {
+		type: String,
+		default: "public",
+		enum: ["public", "private"],
+	},
 	comments: [
 		{
 			type: mongoose.Schema.Types.ObjectId,

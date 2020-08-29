@@ -37,7 +37,7 @@ router.get("/books", async (req, res) => {
 		}
 
 		// find
-		const books = await query.populate("creator").exec();
+		const books = await query.find({ status: "public" }).populate("creator").exec();
 
 		// render
 		res.render("books/index", {
@@ -82,6 +82,7 @@ router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 			pdfFileName: pdfFilename,
 			pageNo: req.body.pageNo,
 			language: req.body.language,
+			status: req.body.status,
 			creator: req.user._id,
 		});
 		// save book
@@ -140,6 +141,7 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 		if (req.body.description) book.description = req.body.description;
 		if (req.body.pageNo) book.pageNo = req.body.pageNo;
 		if (req.body.language) book.language = req.body.language;
+		if (req.body.status) book.status = req.body.status;
 		if (req.body.publishDate) book.publishDate = req.body.publishDate;
 		if (req.files.coverImagePath) {
 			// delete old file before saving new one

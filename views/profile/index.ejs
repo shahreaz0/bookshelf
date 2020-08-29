@@ -17,7 +17,7 @@
 
         <tr>
             <td data-label="Title"><%= post.title %> </td>
-            <td data-label="Status">Public</td>
+            <td data-label="Status"><%= capitalize(post.status) %></td>
 
             <% if (user && post.creator.equals(user._id)) { %>
 

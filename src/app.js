@@ -49,6 +49,10 @@ app.use((req, res, next) => {
 	res.locals.dateFormat = (date) => {
 		return formatDistanceToNow(date);
 	};
+	res.locals.capitalize = (str) => {
+		if (typeof str !== "string") return "";
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	};
 	next();
 });
 

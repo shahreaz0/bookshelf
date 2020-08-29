@@ -44,7 +44,7 @@
       <!-- 1st segment -->
       <div class="ui segment">
         <% if (book.language) { %>
-        <a class="ui tag label"><%= book.language %> </a>
+        <a class="ui tag label"><%= capitalize(book.language) %> </a>
         <% } %>
         <% if (book.pageNo) { %>
         <a class="ui tag label"><%= book.pageNo %> pages</a>
