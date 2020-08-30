@@ -15,7 +15,13 @@ router.get("/signup", ifLoggedIn, (req, res) => {
 router.post("/signup", ifLoggedIn, async (req, res) => {
 	try {
 		const existedUser = await User.find({ username: req.body.username });
-		if (existedUser.length === 1) throw new Error("username already used.");
+
+		const newName = req.body.username + Math.round(Math.random() * 100).toString();
+
+		if (existedUser.length === 1) {
+			req.flash("error", `${req.body.username} already taken. Try ${newName}`);
+			throw new Error("username already used.");
+		}
 
 		const { username, password, email, gender, age, fullName } = req.body;
 
@@ -23,6 +29,7 @@ router.post("/signup", ifLoggedIn, async (req, res) => {
 		await user.setPassword(password);
 		await user.save();
 		passport.authenticate("local")(req, res, () => {
+			req.flash("success", `Welcome to bookshelf, ${user.fullName}`);
 			res.redirect("/books");
 		});
 	} catch (error) {
@@ -40,7 +47,7 @@ router.post(
 	ifLoggedIn,
 	passport.authenticate("local", {
 		successRedirect: "/books",
-		successMessage: "You are logged in.",
+		successMessage: "Successfully logged in.",
 		failureRedirect: "/login",
 		failureMessage: "Incorrect username or password.",
 	}),
@@ -57,12 +64,15 @@ router.get(
 );
 
 router.get("/auth/google/cb", passport.authenticate("google"), (req, res) => {
+	req.flash("success", "Successfully logged in.");
 	res.redirect("/books");
 });
 
 // logout
 router.get("/logout", (req, res) => {
 	req.logOut();
+
+	req.flash("success", "Successfully logged out.");
 	res.redirect("/books");
 });
 

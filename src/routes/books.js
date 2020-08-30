@@ -94,9 +94,10 @@ router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 		await user.save();
 
 		// redirect
+		req.flash("success", "Post created.");
 		res.redirect("/books");
 	} catch (error) {
-		console.log(error);
+		req.flash("error", "Failed to create. Try Again");
 		res.redirect("/books");
 	}
 });
@@ -185,9 +186,11 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 		}
 
 		await book.save();
+
+		req.flash("success", "Post updated.");
 		res.redirect("/books/" + req.params.id);
 	} catch (error) {
-		console.log(error);
+		req.flash("error", "Failed to update. Try Again.");
 		res.redirect("back");
 	}
 });
@@ -212,9 +215,10 @@ router.delete("/books/:id", isBookOwner, async (req, res) => {
 		fs.unlink(pdfDelete, (error) => console.log(error));
 
 		await book.remove();
+		req.flash("success", "Post deleted.");
 		res.redirect("/books");
 	} catch (error) {
-		console.log(error);
+		req.flash("error", "Failed to delete. Try Again.");
 		res.redirect("/books");
 	}
 });

@@ -4,14 +4,39 @@ $(".message .close").on("click", function () {
 });
 
 // toast
-const errorMsg = document.getElementById("error-message").dataset.msg;
+const errorMsg = document.getElementById("error-message")?.dataset.msg || "error";
+const successMsg = document.getElementById("success-message")?.dataset.suc || "success";
 console.log(errorMsg);
+let headMsg = "";
+switch (errorMsg) {
+	case "You are not logged in":
+		headMsg = "Please, Login";
+		break;
+	case "You can't edit other's post.":
+		headMsg = "Permission denied";
+		break;
+}
+
 $("#error-toast").toast({
+	title: headMsg,
 	message: errorMsg,
-	class: "error",
+	class: "red",
 	showProgress: "bottom",
-	classProgress: "yellow",
-	displayTime: 5000,
+	displayTime: 4000,
+	position: "top center",
+});
+
+switch (successMsg) {
+	case "You are not logged in":
+		headMsg = "Please, Login";
+		break;
+}
+
+$("#success-toast").toast({
+	message: successMsg,
+	class: "green",
+	showProgress: "bottom",
+	displayTime: 4000,
 	position: "top center",
 });
 
