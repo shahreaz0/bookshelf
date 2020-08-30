@@ -42,3 +42,11 @@
         </div>
       </div>
     </div>
+
+    <% if (errorMsg && errorMsg.length > 0) { %>
+    <span id="error-message" data-msg="<%= errorMsg %>"></span>
+    <p id="error-toast"></p>
+    <% } %>
+
+    <% if (successMsg && successMsg.length > 0) { %>
+    <% } %>

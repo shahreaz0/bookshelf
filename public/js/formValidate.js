@@ -1,3 +1,20 @@
+// Close Flash message
+$(".message .close").on("click", function () {
+	$(this).closest(".message").transition("fade");
+});
+
+// toast
+const errorMsg = document.getElementById("error-message").dataset.msg;
+console.log(errorMsg);
+$("#error-toast").toast({
+	message: errorMsg,
+	class: "error",
+	showProgress: "bottom",
+	classProgress: "yellow",
+	displayTime: 5000,
+	position: "top center",
+});
+
 // Add Book form validation
 $(".ui.form.add-book").form({
 	fields: {

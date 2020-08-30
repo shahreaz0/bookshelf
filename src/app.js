@@ -8,6 +8,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const formatDistanceToNow = require("date-fns/formatDistanceToNow");
+const flash = require("connect-flash");
 require("dotenv").config();
 
 // routes requires
@@ -42,10 +43,13 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 // ejs middleware
 app.use((req, res, next) => {
 	res.locals.user = req.user;
+	res.locals.errorMsg = req.flash("error");
+	res.locals.successMsg = req.flash("success");
 	res.locals.dateFormat = (date) => {
 		return formatDistanceToNow(date);
 	};

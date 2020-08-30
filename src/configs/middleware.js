@@ -3,8 +3,10 @@ const Book = require("../models/Book");
 const Comment = require("../models/Comment");
 
 exports.isLoggedIn = (req, res, next) => {
-	if (!req.isAuthenticated()) return res.redirect("/login");
-	next();
+	if (req.isAuthenticated()) return next();
+
+	req.flash("error", "You a not logged In");
+	res.redirect("/login");
 };
 
 exports.ifLoggedIn = (req, res, next) => {
