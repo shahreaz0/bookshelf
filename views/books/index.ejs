@@ -53,6 +53,10 @@
 
 <div class="ui centered grid container">
 
+  <% if (books.length === 0) { %>
+  <h4>No book available.<a href="/books/new"> Add a book</a></h4>
+  <% } %>
+
   <% books.forEach((book, index) => { %>
 
   <div class="sixteen wide mobile seven wide tablet four wide computer column">
@@ -85,7 +89,6 @@
     </div>
   </div>
   <% }) %>
-
 
 </div>
 
