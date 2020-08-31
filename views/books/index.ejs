@@ -51,23 +51,17 @@
 
 <!-- Show books section -->
 
-<!-- pass backend data to frontend  -->
-<span id="length" data-length=<%= books.length %>></span>
 <div class="ui centered grid container">
 
   <% books.forEach((book, index) => { %>
 
   <div class="sixteen wide mobile seven wide tablet four wide computer column">
     <div class="ui card centered link">
+
       <div class="content">
-        <div class="right floated meta"><%= dateFormat(book.publishDate) %></div>
-        <img class="ui avatar image" src="<%= book.creator.thumbnail %>">
-
-        <!-- pass backend data to frontend  -->
-        <span id="tooltip<%= index %>" data-tooltip=<%= book.creator.username %>></span>
-
-        <a id="tooltip<%= index %>" href="/profile/<%= book.creator._id %>">
-          <%= book.creator.username.substring(0, 8) %>... </a>
+        <a class="header" href="/books/<%= book._id %>">
+          <%= book.title %> </a>
+        <span id="card__author">by <a href=""><%= book.author %></a> </span>
       </div>
 
       <div class="image">
@@ -75,9 +69,13 @@
       </div>
 
       <div class="content">
-        <a class="header" href="/books/<%= book._id %>"> <%= book.title %> </a>
-        <span id="card__author">by <%= book.author %> </span>
+        <div class="right floated meta"><%= dateFormat(book.publishDate) %></div>
+        <img class="ui avatar image" src="<%= book.creator.thumbnail %>">
+
+        <a id="tooltip" href="/profile/<%= book.creator._id %>" data-tippy-content="<%= book.creator.username%>">
+          <%= book.creator.username.substring(0, 8) %>... </a>
       </div>
+
       <div class="extra content">
         <span class="right floated">
           <i class="heart outline like icon"></i>17 likes

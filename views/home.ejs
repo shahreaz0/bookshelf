@@ -22,6 +22,11 @@
             text-decoration: none;
             color: #fff;
         }
+
+        span {
+            color: white !important;
+            background-color: white !important;
+        }
     </style>
 </head>
 
@@ -39,17 +44,10 @@
     <script>
         new fullpage('#fullpage', {
             //options here
-            loopTop: true,
-            loopBottom: true,
-            autoScrolling: true,
-            scrollHorizontally: true,
             anchors: ['firstPage', 'secondPage', "thirdPage"],
             navigation: true,
-            navigationPosition: 'right',
+            navigationTooltips: ["Book", "Movie", "Food"],
 
-            //Design
-            controlArrows: true,
-            verticalCentered: true,
             sectionsColor: ['#f65058ff', '#fbde44ff', '#28334aff'],
 
         });
