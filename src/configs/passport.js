@@ -22,7 +22,6 @@ passport.use(
 			try {
 				// user exists or not
 				const user = await User.findOne({ googleId: profile.id });
-				console.log(user);
 				if (user) {
 					return done(null, user);
 				}
