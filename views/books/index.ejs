@@ -51,7 +51,7 @@
 
 <!-- Show books section -->
 
-<div class="ui centered grid container">
+<div class="ui grid container">
 
   <% if (books.length === 0) { %>
   <h4>No book available.<a href="/books/new"> Add a book</a></h4>
@@ -60,7 +60,7 @@
   <% books.forEach((book, index) => { %>
 
   <div class="sixteen wide mobile seven wide tablet four wide computer column">
-    <div class="ui card centered link">
+    <div class="ui card link">
 
       <div class="content">
         <a class="header" href="/books/<%= book._id %>">
