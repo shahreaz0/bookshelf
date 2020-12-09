@@ -14,7 +14,7 @@ const fetchRecipe = async (query) => {
 
 	try {
 		const res = await axios(option);
-		console.log(res.data.results);
+		return res.data.results;
 	} catch (error) {
 		throw "API server is down. Try Again.";
 	}
