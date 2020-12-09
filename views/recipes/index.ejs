@@ -25,10 +25,6 @@
 
 <div class="ui grid container">
 
-  <% if (recipes.length === 0) { %>
-  <h4>No recipe available.</h4>
-  <% } %>
-
   <% recipes.forEach((recipe, index) => { %>
 
   <div class="sixteen wide mobile seven wide tablet four wide computer column">
@@ -38,7 +34,7 @@
         <img src="<%= recipe.image %>">
       </div>
       <div class="content">
-        <a class="header"><%= recipe.title %></a>
+        <a class="header" href="/recipe/<%= recipe.id %> "><%= recipe.title %></a>
       </div>
     </div>
   </div>

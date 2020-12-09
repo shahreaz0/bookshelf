@@ -1,11 +1,10 @@
 const router = require("express").Router();
 
-const fetchRecipe = require("../api/recipe");
+const { fetchRecipe, getRecipeDetails } = require("../api/recipe");
 
 router.get("/recipe", async (req, res) => {
 	try {
-		console.log(req.query.q);
-		const data = await fetchRecipe(req.query.q);
+		const data = await fetchRecipe(req.query.q.trim());
 		console.log(data);
 		res.render("recipes/index", {
 			pageTitle: "Search Recipes",
@@ -13,7 +12,18 @@ router.get("/recipe", async (req, res) => {
 			recipes: data,
 		});
 	} catch (error) {
-		res.render("error", { backButton: "/recipe", error });
+		// res.render("404", { backButton: "/recipe", error });
+	}
+});
+
+router.get("/recipe/:id", async (req, res) => {
+	try {
+		console.log(req.params.id);
+		const data = await getRecipeDetails(req.params.id);
+		res.send(data);
+	} catch (error) {
+		console.log(error);
+		// res.render("404", { backButton: "/recipe", error });
 	}
 });
 
