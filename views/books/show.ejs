@@ -44,21 +44,18 @@
       <!-- 1st segment -->
       <div class="ui segment">
         <% if (book.language) { %>
-        <a class="ui tag label"><%= capitalize(book.language) %> </a>
+        <a class="ui label"><%= capitalize(book.language) %> </a>
         <% } %>
         <% if (book.pageNo) { %>
-        <a class="ui tag label"><%= book.pageNo %> pages</a>
+        <a class="ui label"><%= book.pageNo %> pages</a>
         <% } %>
         <% if (!book.language && !book.pageNo) { %>
-        <a class="ui tag label">No details</a>
+        <a class="ui label">No details</a>
         <% } %>
-      </div>
-      <div class="ui segment">
-        <h3><%= book.author %></h3>
       </div>
       <!-- 2nd segment -->
       <div class="ui segment">
-        <h4 class="ui header"> </h4>
+        <h4 class="ui header"><%= book.author %></h4>
 
         <div id="book-description">
           <%- book.description %>
