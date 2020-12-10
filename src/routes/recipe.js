@@ -29,4 +29,14 @@ router.get("/recipes/:id", async (req, res) => {
 	}
 });
 
+router.get("/recipes/api/:id", async (req, res) => {
+	try {
+		console.log(req.params.id);
+		const data = await getRecipeDetails(req.params.id);
+		res.send(data);
+	} catch (error) {
+		res.render("404", { pageTitle: "404" });
+	}
+});
+
 module.exports = router;

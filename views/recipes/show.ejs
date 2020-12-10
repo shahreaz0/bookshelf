@@ -1,91 +1,119 @@
 <%- include("../partials/top") %>
 
 <h4 class="ui horizontal left aligned divider header">
-    Recipe
+  Recipe
 </h4>
 
 <div class="ui grid ">
-    <!-- 1st grid ------------------------------------- -->
-    <div class="sixteen wide mobile six wide tablet five wide computer column">
-        <div class="ui card">
-            <div class="content">
-                <a class="header"><%= data.title %> </a>
-                <div class="meta">
-                    <span class="date">Ready in <%= data.readyInMinutes %> Mins</span>
-                </div>
-            </div>
-            <div class="image">
-                <img src="<%= data.image %>">
-            </div>
-            <div class="content">
+  <!-- 1st grid ------------------------------------- -->
+  <div class="sixteen wide mobile six wide tablet five wide computer column">
+    <div class="ui card">
+      <div class="content">
+        <a class="header"><%= data.title %> </a>
+        <div class="meta">
+          <span class="date">Ready in <%= data.readyInMinutes %> Mins</span>
+        </div>
+      </div>
+      <div class="image">
+        <img src="<%= data.image %>">
+      </div>
+      <div class="content">
+        <div class="description">
+          <%- data.summary  %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2nd grid ------------------------------------- -->
+  <div class="sixteen wide mobile ten wide tablet eleven wide computer column">
+    <div class="ui segments">
+      <!-- 1st segment -->
+      <div class="ui segment">
+        <% if (data.vegetarian === true) { %>
+        <a class="ui label">Vegetarian</a>
+        <% }  else { %>
+        <a class="ui label">Non Vegetarian</a>
+        <% } %>
+
+        <% if (data.glutenFree === true) { %>
+        <a class="ui label">Gluten Free</a>
+        <% }  else { %>
+        <a class="ui label">Rich Gluten</a>
+        <% } %>
+
+        <% if (data.dairyFree === true) { %>
+        <a class="ui label">Dairy Free</a>
+        <% }  else { %>
+        <a class="ui label">Dairy</a>
+        <% } %>
+
+        <% if (data.veryHealthy === true) { %>
+        <a class="ui label">Very Healthy</a>
+        <% }  else { %>
+        <a class="ui label">Unhealthy</a>
+        <% } %>
+
+        <% if (data.cheap === true) { %>
+        <a class="ui label">Cheap</a>
+        <% }  else { %>
+        <a class="ui label">Expensive</a>
+        <% } %>
+
+        <% if (data.sustainable === true) { %>
+        <a class="ui label">Sustainable</a>
+        <% }  else { %>
+        <a class="ui label">Unsustainable</a>
+        <% } %>
+
+        <% if (data.veryPopular === true) { %>
+        <a class="ui label">Very Popular</a>
+        <% }  else { %>
+        <a class="ui label">Roughly Popular</a>
+        <% } %>
+
+      </div>
+      <!-- 2nd segment -->
+      <div class="ui segment">
+        <h4 class="ui header">Ingredients</h4>
+        <div class="ui grid container">
+          <% data.extendedIngredients.forEach(e => { %>
+          <div class="sixteen wide mobile seven wide tablet four wide computer column">
+
+            <div class="card ">
+              <div class="image">
+                <img src="https://spoonacular.com/cdn/ingredients_100x100/<%= e.image %>">
+              </div>
+              <div class="content">
+                <div class="header"><b><%= capitalize( e.name) %></b> </div>
+                <!-- <div class="meta">
+                  <a><%= e.measures.metric.amount %> <%= e.measures.metric.unitShort %></a>
+                </div> -->
                 <div class="description">
-                    <%- data.summary  %>
+                  <%= e.original %>
                 </div>
+              </div>
             </div>
 
-        </div>
-    </div>
-
-    <!-- 2nd grid ------------------------------------- -->
-    <div class="sixteen wide mobile ten wide tablet eleven wide computer column">
-        <div class="ui segments">
-            <!-- 1st segment -->
-            <div class="ui segment">
-                <% if (data.vegetarian === true) { %>
-                <a class="ui label">Vegetarian</a>
-                <% }  else { %>
-                <a class="ui label">Non Vegetarian</a>
-                <% } %>
-
-                <% if (data.glutenFree === true) { %>
-                <a class="ui label">Gluten Free</a>
-                <% }  else { %>
-                <a class="ui label">Rich Gluten</a>
-                <% } %>
-
-                <% if (data.dairyFree === true) { %>
-                <a class="ui label">Dairy Free</a>
-                <% }  else { %>
-                <a class="ui label">Dairy</a>
-                <% } %>
-
-                <% if (data.veryHealthy === true) { %>
-                <a class="ui label">Very Healthy</a>
-                <% }  else { %>
-                <a class="ui label">Unhealthy</a>
-                <% } %>
-
-                <% if (data.cheap === true) { %>
-                <a class="ui label">Cheap</a>
-                <% }  else { %>
-                <a class="ui label">Expensive</a>
-                <% } %>
-
-                <% if (data.sustainable === true) { %>
-                <a class="ui label">Sustainable</a>
-                <% }  else { %>
-                <a class="ui label">Unsustainable</a>
-                <% } %>
-
-                <% if (data.veryPopular === true) { %>
-                <a class="ui label">Very Popular</a>
-                <% }  else { %>
-                <a class="ui label">Roughly Popular</a>
-                <% } %>
-
-
-
-
-
-            </div>
-            <!-- 2nd segment -->
-            <div class="ui segment">
-                <h4 class="ui header">Ingredients</h4>
-
-            </div>
+          </div>
+          <% }) %>
         </div>
 
+      </div>
+
+      <div class="ui segment">
+        <h4 class="ui header">Instruction</h4>
+
+        <% data.analyzedInstructions[0].steps.forEach(e => { %>
+
+        <p><%= e.number %>. <%= e.step %> </p>
+        <% }) %>
+
+      </div>
     </div>
+
+  </div>
 
 </div>
 

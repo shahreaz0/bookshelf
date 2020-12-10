@@ -22,6 +22,11 @@
 	margin-top: 2rem;
 }
 
+div .ui .card img {
+	/* max-height: 100px; */
+	/* max-width: 200px; */
+}
+
 @media only screen and (max-width: 600px) {
 	.ui.card {
 		margin: 0 auto;
