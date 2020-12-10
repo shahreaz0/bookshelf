@@ -20,9 +20,12 @@ router.get("/recipes/:id", async (req, res) => {
 	try {
 		console.log(req.params.id);
 		const data = await getRecipeDetails(req.params.id);
-		res.send(data);
+		res.render("recipes/show", {
+			pageTitle: "Recipe",
+			data,
+		});
 	} catch (error) {
-		res.render("404", { error });
+		res.render("404", { pageTitle: "404" });
 	}
 });
 
