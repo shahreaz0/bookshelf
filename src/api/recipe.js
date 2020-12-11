@@ -20,13 +20,9 @@ const fetchRecipe = async (query) => {
 	}
 };
 
-//fetchRecipe();
-
 const getRecipeDetails = async (id) => {
-	// const q = encodeURIComponent(query);
 	const option = {
 		url: `https://api.spoonacular.com/recipes/${id}/information`,
-		//
 		params: {
 			apiKey: process.env.SPOONACULAR_API_KEY,
 		},

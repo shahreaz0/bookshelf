@@ -5,7 +5,6 @@ const { fetchRecipe, getRecipeDetails } = require("../api/recipe");
 router.get("/recipes", async (req, res) => {
 	try {
 		const data = await fetchRecipe(req.query.q);
-		console.log(data);
 		res.render("recipes/index", {
 			pageTitle: "Search Recipes",
 			queryStr: req.query.q,
@@ -18,7 +17,6 @@ router.get("/recipes", async (req, res) => {
 
 router.get("/recipes/:id", async (req, res) => {
 	try {
-		console.log(req.params.id);
 		const data = await getRecipeDetails(req.params.id);
 		res.render("recipes/show", {
 			pageTitle: "Recipe",
@@ -31,7 +29,6 @@ router.get("/recipes/:id", async (req, res) => {
 
 router.get("/recipes/api/:id", async (req, res) => {
 	try {
-		console.log(req.params.id);
 		const data = await getRecipeDetails(req.params.id);
 		res.send(data);
 	} catch (error) {
