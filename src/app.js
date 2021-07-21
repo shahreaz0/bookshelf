@@ -2,7 +2,6 @@
 const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
-const chalk = require("chalk");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -76,8 +75,4 @@ app.get("*", (req, res) => {
 
 // server
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-	console.log(chalk.blue("====================="));
-	console.log(chalk.bold(`http://localhost:${chalk.bold.red(port)}`));
-	console.log(chalk.blue("====================="));
-});
+app.listen(port, () => console.log(`http://localhost:${port}`));

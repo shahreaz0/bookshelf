@@ -3,9 +3,9 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"start": "node ./build/bundle-back.js",
+		"start": "node ./build/app.js",
 		"dev": "nodemon ./src/app.js",
-		"build": "webpack --config webpack.config.js --mode production"
+		"build": "node ./esbuild.config.js"
 	},
 	"dependencies": {
 		"axios": "^0.21.0",
@@ -16,7 +16,7 @@
 		"express": "^4.17.1",
 		"express-session": "^1.17.1",
 		"method-override": "^3.0.0",
-		"mongoose": "^5.9.25",
+		"mongoose": "^5.13.3",
 		"multer": "^1.4.2",
 		"passport": "^0.4.1",
 		"passport-google-oauth20": "^2.0.0",
@@ -26,11 +26,8 @@
 		"tippy.js": "^6.2.6"
 	},
 	"devDependencies": {
-		"chalk": "^4.0.0",
 		"dotenv": "^8.2.0",
-		"nodemon": "^2.0.4",
-		"webpack": "^4.43.0",
-		"webpack-cli": "^3.3.11",
-		"webpack-node-externals": "^1.7.2"
+		"esbuild": "^0.12.15",
+		"nodemon": "^2.0.4"
 	}
 }
