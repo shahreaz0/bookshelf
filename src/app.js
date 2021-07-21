@@ -72,10 +72,6 @@ app.use(commentRoutes);
 app.use(profileRoutes);
 app.use(recipeRoutes);
 
-app.get("/movies", (req, res) => {
-	res.render("movie", { pageTitle: "Movie Fight" });
-});
-
 app.get("*", (req, res) => {
 	res.render("404", { pageTitle: "404" });
 });
