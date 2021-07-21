@@ -16,7 +16,6 @@ const bookRoutes = require("./routes/books");
 const authRoutes = require("./routes/auth");
 const commentRoutes = require("./routes/comments");
 const profileRoutes = require("./routes/profile");
-const recipeRoutes = require("./routes/recipe");
 
 // mongodb config
 require("./configs/db");
@@ -70,7 +69,6 @@ app.use(authRoutes);
 app.use(bookRoutes);
 app.use(commentRoutes);
 app.use(profileRoutes);
-app.use(recipeRoutes);
 
 app.get("*", (req, res) => {
 	res.render("404", { pageTitle: "404" });
