@@ -5,6 +5,23 @@
 	box-sizing: border-box;
 }
 
+
+/* home.ejs */
+
+#header {
+	background-color:  tomato;
+	color:  white;
+	padding:  3rem;
+}
+
+#header h1 {
+	font-size:  3rem;
+	text-align:  center;
+	text-transform: uppercase;
+	letter-spacing:  6px;
+}
+
+
 .book-edit-button,
 #book-delete-form {
 	margin: 5px auto !important;
@@ -85,6 +102,44 @@
 .google-btn:active {
 	background: #1669f2;
 }
+
+/* ==================== fomantic overwrites ============ */
+
+.ui.container {
+	margin-top: 1rem !important;
+}
+
+.ui.button.navbar {
+	margin: 0 0.5rem !important;
+}
+
+.field {
+	margin-bottom: 1rem !important;
+}
+
+.ui .grid {
+	margin-top: 2rem;
+}
+
+.ui.list {
+	margin-top: 2rem;
+}
+
+div .ui .card img {
+	/* max-height: 100px; */
+	/* max-width: 200px; */
+}
+
+@media only screen and (max-width: 600px) {
+	.ui.card {
+		margin: 0 auto;
+	}
+}
+
+
+
+
+
 
 /* ================== Scrollbar Styling ================== */
 ::-webkit-scrollbar {

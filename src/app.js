@@ -59,10 +59,35 @@ app.use((req, res, next) => {
 	next();
 });
 
-// routes
-app.get("/", (req, res) => {
-	res.render("home", { pageTitle: "Bookshelf", path: req.path });
+
+
+//models
+const Book = require("./models/Book");
+
+app.get("/", async (req, res) => {
+	try {
+		const recentBooks = await Book.find()
+			.sort({ publishDate: "desc" })
+			.limit(10)
+			.exec();
+
+		res.render("home", {
+			pageTitle: "Paperback",
+			books: recentBooks,
+			path: req.path,
+		});
+	} catch (error) {
+		res.render("404", {
+			pageTitle: "404"
+		});
+	}
 });
+
+
+// // routes
+// app.get("/", (req, res) => {
+// 	res.render("home", { pageTitle: "Bookshelf", path: req.path });
+// });
 
 app.use(authRoutes);
 app.use(bookRoutes);
