@@ -45,7 +45,6 @@ router.get("/books", async (req, res) => {
 			.find({ status: "public" })
 			.populate("creator")
 			.exec();
-		console.log(books);
 
 		// render
 		res.render("books/index", {

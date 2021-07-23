@@ -4,10 +4,13 @@ $(".message .close").on("click", function () {
 });
 
 // toast
-const errorMsg = document.getElementById("error-message")?.dataset.msg || "error";
-const successMsg = document.getElementById("success-message")?.dataset.suc || "success";
-console.log(errorMsg);
+const errorMsg =
+	document.getElementById("error-message")?.dataset.msg || "error";
+const successMsg =
+	document.getElementById("success-message")?.dataset.suc || "success";
+
 let headMsg = "";
+
 switch (errorMsg) {
 	case "You are not logged in":
 		headMsg = "Please, Login";
@@ -85,7 +88,7 @@ $(".ui.form.add-book").form({
 // signup form
 $(".ui.form.signup").form({
 	fields: {
-		fullName: {
+		name: {
 			identifier: "fullName",
 			rules: [
 				{
@@ -122,15 +125,6 @@ $(".ui.form.signup").form({
 				{
 					type: "minLength[6]",
 					prompt: "Your password must be at least {ruleValue} characters",
-				},
-			],
-		},
-		terms: {
-			identifier: "terms",
-			rules: [
-				{
-					type: "checked",
-					prompt: "You must agree to the terms and conditions",
 				},
 			],
 		},

@@ -1,10 +1,5 @@
 <%- include("../partials/top") %>
 
-<h4 class="ui horizontal divider header">
-  <i class="user plus icon"></i>
-  Signup
-</h4>
-
 <!-- Grid -->
 <div class="ui grid centered">
   <!-- column -->
@@ -13,26 +8,26 @@
     <form class="ui form signup" action="/signup" method="POST">
       <div class="two fields">
         <div class="field required">
-          <label>Full Name</label>
-          <input placeholder="Genghis Khan" name="fullName" type="text">
+          <label>Name</label>
+          <input name="name" type="text">
         </div>
         <div class="field required">
           <label>Email</label>
-          <input type="email" name="email" placeholder="user@mail.com">
+          <input type="email" name="email" autocomplete="email">
         </div>
       </div>
       <div class="four fields">
         <div class="field required">
           <label>Username</label>
-          <input placeholder="random" name="username" type="text">
+          <input name="username" type="text">
         </div>
         <div class="field required">
           <label>Password</label>
-          <input placeholder="****" name="password" type="password">
+          <input name="password" type="password">
         </div>
         <div class="field">
           <label>Age</label>
-          <input placeholder="20" name="age" type="number" min="7" max="100">
+          <input name="age" inputmode="numeric">
         </div>
         <div class="field">
           <label>Gender</label>
@@ -44,19 +39,13 @@
           </select>
         </div>
       </div>
-      <div class="inline field">
-        <div class="ui checkbox">
-          <input type="checkbox" name="terms">
-          <label>I agree to the terms and conditions</label>
-        </div>
-      </div>
-      <div class="ui primary submit button">Create</div>
+      
+      <div class="ui primary submit button">Signup</div>
       <div class="ui error message"></div>
 
       <!-- google sign in button -->
       <div class="ui grid centered">
         <div class="fourteen wide mobile ten wide tablet six wide computer column">
-          <h4 class="ui horizontal divider header">OR</h4>
           <a href="/auth/google">
             <div class="google-btn">
               <div class="google-icon-wrapper">

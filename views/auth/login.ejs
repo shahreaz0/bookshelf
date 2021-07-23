@@ -1,10 +1,5 @@
 <%- include("./../partials/top") %>
 
-<h4 class="ui horizontal divider header">
-  <i class="user plus icon"></i>
-  Login
-</h4>
-
 <!-- Grid -->
 <div class="ui grid centered">
   <!-- column -->
@@ -14,20 +9,21 @@
       <div class="fields">
         <div class="sixteen wide field">
           <label>Username</label>
-          <input placeholder="random" name="username" type="text">
+          <input name="username" type="text">
         </div>
       </div>
       <div class="fields">
         <div class="sixteen wide field">
           <label>Password</label>
-          <input placeholder="****" name="password" type="password">
+          <input name="password" type="password">
         </div>
       </div>
       <div class="ui primary submit button fluid">Login</div>
       <div class="ui error message"></div>
 
       <!-- google sign in button -->
-      <h4 class="ui horizontal divider header">OR</h4>
+      <br>
+      <br>
       <a href="/auth/google">
         <div class="google-btn">
           <div class="google-icon-wrapper">
