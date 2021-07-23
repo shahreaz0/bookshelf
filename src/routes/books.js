@@ -21,10 +21,14 @@ router.get("/books", async (req, res) => {
 		// search by options
 		let query = Book.find();
 		if (req.query.title) {
-			query = query.where("title").regex(new RegExp(req.query.title, "i"));
+			query = query
+				.where("title")
+				.regex(new RegExp(req.query.title, "i"));
 		}
 		if (req.query.author) {
-			query = query.where("author").regex(new RegExp(req.query.author, "i"));
+			query = query
+				.where("author")
+				.regex(new RegExp(req.query.author, "i"));
 		}
 		if (req.query.publishAfter) {
 			query = query.where("publishDate").gte(req.query.publishAfter);
@@ -37,7 +41,11 @@ router.get("/books", async (req, res) => {
 		}
 
 		// find
-		const books = await query.find({ status: "public" }).populate("creator").exec();
+		const books = await query
+			.find({ status: "public" })
+			.populate("creator")
+			.exec();
+		console.log(books);
 
 		// render
 		res.render("books/index", {
@@ -71,7 +79,9 @@ router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 
 		// resize cover image
 		const filePath = req.files.coverImagePath[0].path;
-		await sharp(filePath).resize(250, 400).toFile(`./public${coverImagePath}`);
+		await sharp(filePath)
+			.resize(250, 400)
+			.toFile(`./public${coverImagePath}`);
 
 		// save in the data base
 		const book = new Book({
@@ -148,7 +158,12 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 			// delete old file before saving new one
 			const { filename } = req.files.coverImagePath[0];
 
-			const deletePath = path.join("public", "uploads", "img", book.coverImageName);
+			const deletePath = path.join(
+				"public",
+				"uploads",
+				"img",
+				book.coverImageName
+			);
 			fs.unlink(deletePath, (error) => {
 				if (error) console.log(error);
 			});
@@ -157,7 +172,7 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 				"uploads",
 				"img",
 				"resized",
-				book.coverImageName,
+				book.coverImageName
 			);
 			fs.unlink(deletePathResized, (error) => {
 				if (error) console.log(error);
@@ -165,7 +180,13 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 
 			// resize updated file
 			const srcPath = req.files.coverImagePath[0].path;
-			const destPath = path.join("public", "uploads", "img", "resized", filename);
+			const destPath = path.join(
+				"public",
+				"uploads",
+				"img",
+				"resized",
+				filename
+			);
 			await sharp(srcPath).resize(250, 400).toFile(destPath);
 
 			// save new file name
@@ -176,7 +197,12 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 			const { filename } = req.files.pdfFile[0];
 
 			// delete old file before saving new one
-			const deletePath = path.join("public", "uploads", "pdf", book.pdfFileName);
+			const deletePath = path.join(
+				"public",
+				"uploads",
+				"pdf",
+				book.pdfFileName
+			);
 			fs.unlink(deletePath, (error) => {
 				if (error) console.log(error);
 			});
@@ -200,15 +226,25 @@ router.delete("/books/:id", isBookOwner, async (req, res) => {
 	try {
 		const book = await Book.findById(req.params.id);
 
-		const imgDelete = path.join("public", "uploads", "img", book.coverImageName);
+		const imgDelete = path.join(
+			"public",
+			"uploads",
+			"img",
+			book.coverImageName
+		);
 		const resizedDelete = path.join(
 			"public",
 			"uploads",
 			"img",
 			"resized",
-			book.coverImageName,
+			book.coverImageName
 		);
-		const pdfDelete = path.join("public", "uploads", "pdf", book.pdfFileName);
+		const pdfDelete = path.join(
+			"public",
+			"uploads",
+			"pdf",
+			book.pdfFileName
+		);
 
 		fs.unlink(imgDelete, (error) => console.log(error));
 		fs.unlink(resizedDelete, (error) => console.log(error));

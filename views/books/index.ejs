@@ -45,8 +45,7 @@
 </div>
 
 <h4 class="ui horizontal divider header">
-  <i class="book icon"></i>
-  Books
+  BOOKS
 </h4>
 
 <!-- Show books section -->
@@ -68,9 +67,9 @@
         <span id="card__author">by <a href=""><%= book.author %></a> </span>
       </div>
 
-      <div class="image">
+      <a class="image" href="/books/<%= book._id %>">
         <img src="<%= book.coverImageUrl %>">
-      </div>
+      </a>
 
       <div class="content">
         <div class="right floated meta"><%= dateFormat(book.publishDate) %></div>

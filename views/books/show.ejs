@@ -1,13 +1,16 @@
 <%- include("../partials/top") %>
 
-<h4 class="ui horizontal left aligned divider header">
-  <%= book.title %>
-</h4>
-
 <div class="ui grid ">
   <!-- 1st grid ------------------------------------- -->
   <div class="sixteen wide mobile six wide tablet five wide computer column">
     <div class="ui card centered">
+
+      <div class="content">
+        <h1 class="header" href="/books/<%= book._id %>">
+          <%= book.title %> 
+        </h1>
+      </div>
+
       <div class="image">
         <img src="<%= book.coverImageUrl %>">
       </div>
@@ -55,8 +58,7 @@
       </div>
       <!-- 2nd segment -->
       <div class="ui segment">
-        <h4 class="ui header"><%= book.author %></h4>
-
+  
         <div id="book-description">
           <%- book.description %>
         </div>
@@ -68,7 +70,7 @@
 
 
     <!-- comment section -->
-    <h4 class="ui horizontal left aligned divider header">
+    <h4 class="ui header">
       <i class="comment outline icon"></i>
       Comments
     </h4>

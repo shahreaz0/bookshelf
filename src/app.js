@@ -6,7 +6,9 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
-const formatDistanceToNow = require("date-fns/formatDistanceToNow");
+const dayjs = require("dayjs");
+const relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
 const flash = require("connect-flash");
 require("dotenv").config();
 
@@ -15,6 +17,9 @@ const bookRoutes = require("./routes/books");
 const authRoutes = require("./routes/auth");
 const commentRoutes = require("./routes/comments");
 const profileRoutes = require("./routes/profile");
+
+//models
+const Book = require("./models/Book");
 
 // mongodb config
 require("./configs/db");
@@ -38,7 +43,7 @@ app.use(
 			mongooseConnection: mongoose.connection,
 			ttl: 7 * 24 * 60 * 60,
 		}),
-	}),
+	})
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,7 +55,7 @@ app.use((req, res, next) => {
 	res.locals.errorMsg = req.flash("error");
 	res.locals.successMsg = req.flash("success");
 	res.locals.dateFormat = (date) => {
-		return formatDistanceToNow(date);
+		return dayjs().to(dayjs(date));
 	};
 	res.locals.capitalize = (str) => {
 		if (typeof str !== "string") return "";
@@ -59,14 +64,11 @@ app.use((req, res, next) => {
 	next();
 });
 
-
-
-//models
-const Book = require("./models/Book");
-
+// routes
 app.get("/", async (req, res) => {
 	try {
 		const recentBooks = await Book.find()
+			.populate("creator")
 			.sort({ publishDate: "desc" })
 			.limit(10)
 			.exec();
@@ -77,17 +79,12 @@ app.get("/", async (req, res) => {
 			path: req.path,
 		});
 	} catch (error) {
+		console.log(error);
 		res.render("404", {
-			pageTitle: "404"
+			pageTitle: "404",
 		});
 	}
 });
-
-
-// // routes
-// app.get("/", (req, res) => {
-// 	res.render("home", { pageTitle: "Bookshelf", path: req.path });
-// });
 
 app.use(authRoutes);
 app.use(bookRoutes);
