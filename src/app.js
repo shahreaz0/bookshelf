@@ -79,7 +79,6 @@ app.get("/", async (req, res) => {
 			path: req.path,
 		});
 	} catch (error) {
-		console.log(error);
 		res.render("404", {
 			pageTitle: "404",
 		});

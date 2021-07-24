@@ -25,7 +25,7 @@
       </a>
 
       <div class="content">
-        <div class="right floated meta"><%= dateFormat(book.publishDate) %></div>
+        <div class="right floated meta"><%= dateFormat(book.createdAt) %></div>
         <img class="ui avatar image" src="<%= book.creator.thumbnail %>">
 
         <a id="tooltip" href="/profile/<%= book.creator._id %>" data-tippy-content="<%= book.creator.username%>">
@@ -35,7 +35,7 @@
 
       <div class="extra content">
         <span class="right floated">
-          <i class="heart outline like icon"></i>17 likes
+          <i class="heart outline like icon"></i> <%= book.likes %> likes
         </span>
         <i class="comment icon"></i> <%= book.comments.length %> comments
       </div>
