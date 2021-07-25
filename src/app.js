@@ -12,12 +12,6 @@ dayjs.extend(relativeTime);
 const flash = require("connect-flash");
 require("dotenv").config();
 
-// routes requires
-const bookRoutes = require("./routes/books");
-const authRoutes = require("./routes/auth");
-const commentRoutes = require("./routes/comments");
-const profileRoutes = require("./routes/profile");
-
 //models
 const Book = require("./models/Book");
 
@@ -85,10 +79,10 @@ app.get("/", async (req, res) => {
 	}
 });
 
-app.use(authRoutes);
-app.use(bookRoutes);
-app.use(commentRoutes);
-app.use(profileRoutes);
+app.use(require("./routes/auth"));
+app.use(require("./routes/books"));
+app.use(require("./routes/comments"));
+app.use(require("./routes/profile"));
 
 app.get("*", (req, res) => {
 	res.render("404", { pageTitle: "404" });

@@ -19,17 +19,24 @@ const bookSchema = mongoose.Schema(
 			type: String,
 			trim: true,
 		},
-		coverImageName: {
-			type: String,
-			required: true,
+		coverImg: {
+			url: {
+				type: String,
+			},
+			cloudinary_id: {
+				type: String,
+			},
 		},
-		pdfFileName: {
-			type: String,
-			required: true,
+		pdfBook: {
+			url: {
+				type: String,
+			},
+			cloudinary_id: {
+				type: String,
+			},
 		},
 		pageNo: {
 			type: Number,
-			min: 1,
 		},
 		language: {
 			type: String,
@@ -58,19 +65,5 @@ const bookSchema = mongoose.Schema(
 		timestamps: true,
 	}
 );
-
-bookSchema.virtual("coverImageUrl").get(function () {
-	if (this.coverImageName) {
-		return (
-			"\\" + path.join("uploads", "img", "resized", this.coverImageName)
-		);
-	}
-});
-
-bookSchema.virtual("pdfFileUrl").get(function () {
-	if (this.pdfFileName) {
-		return "\\" + path.join("uploads", "pdf", this.pdfFileName);
-	}
-});
 
 module.exports = mongoose.model("Book", bookSchema);

@@ -4,11 +4,7 @@ const path = require("path");
 // multer config
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		if (file.originalname.match(/\.(jpg|jpeg|png|webp)$/i)) {
-			cb(null, path.join("public", "uploads", "img"));
-		} else if (file.originalname.match(/\.pdf$/i)) {
-			cb(null, path.join("public", "uploads", "pdf"));
-		}
+		cb(null, path.join("public", "uploads"));
 	},
 	filename: function (req, file, cb) {
 		const formattedName = file.originalname.split(" ").join("_");
@@ -16,8 +12,8 @@ const storage = multer.diskStorage({
 	},
 });
 const upload = multer({
-	storage: storage,
-	limits: 100000,
+	storage,
+	limits: 100000000,
 	fileFilter(req, file, cb) {
 		if (!file.originalname.match(/\.(jpg|jpeg|png|webp|pdf)$/i)) {
 			cb(new Error("File type not allowed."));

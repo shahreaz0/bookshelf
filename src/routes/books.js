@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const path = require("path");
-const fs = require("fs");
-const sharp = require("sharp");
+const fs = require("fs-extra");
 
 //models
 const Book = require("../models/Book");
@@ -10,10 +9,9 @@ const User = require("../models/User");
 // middleware
 const { isLoggedIn, isBookOwner } = require("../configs/middleware");
 
-// file upload
+// configs
 const multipleUploads = require("../configs/fileUpload");
-
-// routes -------------------------->
+const cloudinary = require("../configs/cloudinary");
 
 // GET --> /books --> Shows All books
 router.get("/books", async (req, res) => {
@@ -59,53 +57,63 @@ router.get("/books", async (req, res) => {
 });
 
 // POST --> /books --> Create books
+let deleteImg;
+let deletePdf;
+
 router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 	try {
-		// if resized folder not there, create
-		fs.access("./public/uploads/img/resized", (error) => {
-			if (error) {
-				fs.mkdirSync("./public/uploads/img/resized");
+		const img = await cloudinary.uploader.upload(
+			req.files.coverImagePath[0].path,
+			{
+				public_id: `bookshelf/img/${req.files.coverImagePath[0].filename}`,
+				eager: [{ width: 250, height: 400, fetch_format: "auto" }],
 			}
-		});
+		);
 
-		// image path
-		const coverFilename = req.files.coverImagePath[0].filename;
-		const coverImagePath = `/uploads/img/resized/${coverFilename}`;
+		const pdf = await cloudinary.uploader.upload(
+			req.files.pdfFile[0].path,
+			{
+				public_id: `bookshelf/pdf/${req.files.pdfFile[0].filename}`,
+			}
+		);
 
-		// pdf path
-		const pdfFilename = req.files.pdfFile[0].filename;
-		const pdfPath = `/uploads/pdf/${pdfFilename}`;
+		deleteImg = img.public_id;
+		deletePdf = pdf.public_id;
 
-		// resize cover image
-		const filePath = req.files.coverImagePath[0].path;
-		await sharp(filePath)
-			.resize(250, 400)
-			.toFile(`./public${coverImagePath}`);
+		fs.emptyDirSync(path.join("public", "uploads"));
 
-		// save in the data base
+		// new book
 		const book = new Book({
 			title: req.body.title,
 			author: req.body.author,
 			description: req.body.description,
-			coverImageName: coverFilename,
-			pdfFileName: pdfFilename,
 			pageNo: req.body.pageNo,
 			language: req.body.language,
 			status: req.body.status,
 			creator: req.user._id,
+			coverImg: {
+				url: img.eager[0].secure_url,
+				cloudinary_id: img.public_id,
+			},
+			pdfBook: {
+				url: pdf.secure_url,
+				cloudinary_id: pdf.public_id,
+			},
 		});
 		// save book
 		await book.save();
-
 		// save books Id in user model
 		const user = await User.findById(req.user._id);
 		user.posts.push(book);
+
 		await user.save();
 
 		// redirect
 		req.flash("success", "Post created.");
 		res.redirect("/books");
 	} catch (error) {
+		await cloudinary.uploader.destroy(deleteImg);
+		await cloudinary.uploader.destroy(deletePdf);
 		req.flash("error", "Failed to create. Try Again");
 		res.redirect("/books");
 	}
@@ -153,65 +161,46 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 		if (req.body.language) book.language = req.body.language;
 		if (req.body.status) book.status = req.body.status;
 		if (req.body.publishDate) book.publishDate = req.body.publishDate;
+
 		if (req.files.coverImagePath) {
-			// delete old file before saving new one
-			const { filename } = req.files.coverImagePath[0];
-
-			const deletePath = path.join(
-				"public",
-				"uploads",
-				"img",
-				book.coverImageName
+			// delete prev img
+			await cloudinary.uploader.destroy(book.coverImg.cloudinary_id);
+			// upload new img
+			const img = await cloudinary.uploader.upload(
+				req.files.coverImagePath[0].path,
+				{
+					public_id: `bookshelf/img/${req.files.coverImagePath[0].filename}`,
+					eager: [{ width: 250, height: 400, fetch_format: "auto" }],
+				}
 			);
-			fs.unlink(deletePath, (error) => {
-				if (error) console.log(error);
-			});
-			const deletePathResized = path.join(
-				"public",
-				"uploads",
-				"img",
-				"resized",
-				book.coverImageName
-			);
-			fs.unlink(deletePathResized, (error) => {
-				if (error) console.log(error);
-			});
-
-			// resize updated file
-			const srcPath = req.files.coverImagePath[0].path;
-			const destPath = path.join(
-				"public",
-				"uploads",
-				"img",
-				"resized",
-				filename
-			);
-			await sharp(srcPath).resize(250, 400).toFile(destPath);
-
-			// save new file name
-			book.coverImageName = filename;
+			// overwrite prev img data
+			book.coverImg = {
+				url: img.eager[0].secure_url,
+				cloudinary_id: img.public_id,
+			};
 		}
 
 		if (req.files.pdfFile) {
-			const { filename } = req.files.pdfFile[0];
-
-			// delete old file before saving new one
-			const deletePath = path.join(
-				"public",
-				"uploads",
-				"pdf",
-				book.pdfFileName
+			// delete prev pdf
+			await cloudinary.uploader.destroy(book.pdfBook.cloudinary_id);
+			// upload new pdf
+			const pdf = await cloudinary.uploader.upload(
+				req.files.pdfFile[0].path,
+				{
+					public_id: `bookshelf/pdf/${req.files.pdfFile[0].filename}`,
+				}
 			);
-			fs.unlink(deletePath, (error) => {
-				if (error) console.log(error);
-			});
-
-			// save new pdf file name
-			book.pdfFileName = filename;
+			// overwrite prev pdf data
+			book.pdfBook = {
+				url: pdf.secure_url,
+				cloudinary_id: pdf.public_id,
+			};
 		}
 
+		// empty uploads folder
+		fs.emptyDirSync(path.join("public", "uploads"));
+		// save
 		await book.save();
-
 		req.flash("success", "Post updated.");
 		res.redirect("/books/" + req.params.id);
 	} catch (error) {
@@ -224,31 +213,10 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 router.delete("/books/:id", isBookOwner, async (req, res) => {
 	try {
 		const book = await Book.findById(req.params.id);
-
-		const imgDelete = path.join(
-			"public",
-			"uploads",
-			"img",
-			book.coverImageName
-		);
-		const resizedDelete = path.join(
-			"public",
-			"uploads",
-			"img",
-			"resized",
-			book.coverImageName
-		);
-		const pdfDelete = path.join(
-			"public",
-			"uploads",
-			"pdf",
-			book.pdfFileName
-		);
-
-		fs.unlink(imgDelete, (error) => console.log(error));
-		fs.unlink(resizedDelete, (error) => console.log(error));
-		fs.unlink(pdfDelete, (error) => console.log(error));
-
+		// remove cover img and pdf book from cloudinary
+		await cloudinary.uploader.destroy(book.coverImg.cloudinary_id);
+		await cloudinary.uploader.destroy(book.pdfBook.cloudinary_id);
+		// remove book from database
 		await book.remove();
 		req.flash("success", "Post deleted.");
 		res.redirect("/books");
