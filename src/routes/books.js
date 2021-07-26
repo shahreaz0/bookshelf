@@ -57,9 +57,6 @@ router.get("/books", async (req, res) => {
 });
 
 // POST --> /books --> Create books
-let deleteImg;
-let deletePdf;
-
 router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 	try {
 		const img = await cloudinary.uploader.upload(

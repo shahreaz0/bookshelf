@@ -10,10 +10,7 @@ const dayjs = require("dayjs");
 const relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime);
 const flash = require("connect-flash");
-require("dotenv").config();
-
-//models
-const Book = require("./models/Book");
+if (!(process.env.NODE_ENV === "production")) require("dotenv").config();
 
 // mongodb config
 require("./configs/db");
@@ -59,26 +56,8 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.get("/", async (req, res) => {
-	try {
-		const recentBooks = await Book.find()
-			.populate("creator")
-			.sort({ publishDate: "desc" })
-			.limit(10)
-			.exec();
 
-		res.render("home", {
-			pageTitle: "Paperback",
-			books: recentBooks,
-			path: req.path,
-		});
-	} catch (error) {
-		res.render("404", {
-			pageTitle: "404",
-		});
-	}
-});
-
+app.use(require("./routes/home"));
 app.use(require("./routes/auth"));
 app.use(require("./routes/books"));
 app.use(require("./routes/comments"));
