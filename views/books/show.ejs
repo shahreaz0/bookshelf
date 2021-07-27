@@ -3,8 +3,8 @@
 <div class="ui grid ">
   <!-- 1st grid ------------------------------------- -->
   <div class="sixteen wide mobile six wide tablet five wide computer column">
-    <div class="ui card centered">
 
+    <div class="ui card show">
       <div class="content">
         <h1 class="header" href="/books/<%= book._id %>">
           <%= book.title %> 
@@ -15,16 +15,18 @@
         <img src="<%= book.coverImg.url %>">
       </div>
       <div class="content">
-        <div class="right floated meta"><%= book.createdAt.toDateString() %></div>
-        <img class="ui avatar image" src="<%= book.creator.thumbnail %> ">
-        <a href="#"><%= book.creator.username %> </a>
+        <span>
+          <img class="ui avatar image" src="<%= book.creator.thumbnail %> ">
+          <a class="card-content-username" href="/profile/<%= book.creator._id %>"><%= book.creator.username %> </a>
+        </span>
+        <div class="right floated meta" id="card-content-date"><%= book.createdAt.toDateString() %></div>
       </div>
 
       <!-- dynamic edit and delete button -->
       <% if (user && book.creator.equals(user._id)) { %>
 
       <!-- edit button -->
-      <a class="ui button teal book-edit-button" href="/books/<%= book._id %>/edit">
+      <a class="ui button grey book-edit-button" href="/books/<%= book._id %>/edit">
         <i class="edit outline icon"></i> Edit
       </a>
 

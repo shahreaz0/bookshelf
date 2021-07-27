@@ -5,22 +5,20 @@
 	box-sizing: border-box;
 }
 
-
 /* home.ejs */
 
 #header {
-	background-color:  tomato;
-	color:  white;
-	padding:  3rem;
+	background-color: tomato;
+	color: white;
+	padding: 3rem;
 }
 
 #header h1 {
-	font-size:  3rem;
-	text-align:  center;
+	font-size: 3rem;
+	text-align: center;
 	text-transform: uppercase;
-	letter-spacing:  6px;
+	letter-spacing: 6px;
 }
-
 
 .book-edit-button,
 #book-delete-form {
@@ -105,6 +103,19 @@
 
 /* ==================== fomantic overwrites ============ */
 
+.home.ui.horizontal.divider.header {
+	margin-top: 4rem;
+}
+
+#right-menu {
+	padding-right: 0;
+}
+
+#logout-button,
+#login-button {
+	margin-right: 0 !important;
+}
+
 .ui.container {
 	margin-top: 1rem !important;
 }
@@ -125,9 +136,25 @@
 	margin-top: 2rem;
 }
 
-div .ui .card img {
-	/* max-height: 100px; */
-	/* max-width: 200px; */
+.ui.card.show {
+	width: auto;
+}
+
+.ui.card > .content,
+.ui.cards > .card > .content {
+	padding: 0.8rem 1rem;
+}
+
+.ui.card .meta,
+.ui.cards > .card .meta {
+	line-height: 1.9;
+}
+
+.ui.card .avatar img,
+.ui.card img.avatar,
+.ui.cards > .card .avatar img,
+.ui.cards > .card img.avatar {
+	margin-right: 0.5rem;
 }
 
 @media only screen and (max-width: 600px) {
@@ -135,11 +162,6 @@ div .ui .card img {
 		margin: 0 auto;
 	}
 }
-
-
-
-
-
 
 /* ================== Scrollbar Styling ================== */
 ::-webkit-scrollbar {

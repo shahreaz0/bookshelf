@@ -56,7 +56,6 @@ app.use((req, res, next) => {
 });
 
 // routes
-
 app.use(require("./routes/home"));
 app.use(require("./routes/auth"));
 app.use(require("./routes/books"));
