@@ -3,32 +3,37 @@
 <div class="ui grid centered">
   <!-- column -->
   <div class="sixteen wide mobile fourteen wide tablet twelve wide computer column">
+    <h3>Search</h3>
     <!-- Form -->
     <form class="ui form" method="GET">
       <!-- first 2 fields -->
       <div class="fields">
         <div class="field eight wide">
-          <label>Title</label>
+          <label>by Title</label>
           <input name="title" type="text" value="<%= searchOptions.title %>">
         </div>
         <div class="field eight wide">
-          <label>Author</label>
+          <label>by Author</label>
           <input name="author" type="text" value="<%= searchOptions.author %>">
+        </div>
+        <div class="field eight wide">
+          <label>by Genre</label>
+          <input name="genre" type="text" value="<%= searchOptions.genre %>">
         </div>
       </div>
 
       <!-- second 3 fields and submit button -->
       <div class="fields">
         <div class="field four wide">
-          <label>Published Before</label>
+          <label>by Published before</label>
           <input name="publishBefore" type="date" value="<%= searchOptions.publishBefore %>">
         </div>
         <div class="field four wide">
-          <label>Published After</label>
+          <label>by Published after</label>
           <input name="publishAfter" type="date" value="<%= searchOptions.publishAfter %>">
         </div>
         <div class="field four wide">
-          <label for=""> Language</label>
+          <label for="">by Language</label>
           <select class="ui dropdown" name="language">
             <option value="">Select</option>
             <option value="english">English</option>
@@ -80,7 +85,7 @@
       </div>
 
       <div class="extra content">
-        <span class="like-section right floated">
+        <span class="right floated">
           <i class="heart like icon <%= !book.likedUsers.includes(locals.user && user.id) && "outline" %> <%= !user && "disable" %>" data-bookid="<%= book._id %>" data-userid="<%= locals.user && user.id %>"></i> 
 
           <span class="like-section" data-user="<%= book._id %>" data-span="<%= book._id %>"><%= book.likes %> likes</span>

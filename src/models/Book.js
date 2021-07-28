@@ -35,8 +35,8 @@ const bookSchema = mongoose.Schema(
 				type: String,
 			},
 		},
-		pageNo: {
-			type: Number,
+		genre: {
+			type: String,
 		},
 		language: {
 			type: String,

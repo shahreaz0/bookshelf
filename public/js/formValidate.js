@@ -23,10 +23,10 @@ switch (errorMsg) {
 $("#error-toast").toast({
 	title: headMsg,
 	message: errorMsg,
-	class: "red",
 	showProgress: "bottom",
 	displayTime: 4000,
 	position: "top center",
+	classProgress: "red",
 });
 
 switch (successMsg) {
@@ -37,10 +37,10 @@ switch (successMsg) {
 
 $("#success-toast").toast({
 	message: successMsg,
-	class: "green",
 	showProgress: "bottom",
-	displayTime: 4000,
+	displayTime: 3000,
 	position: "top center",
+	classProgress: "green",
 });
 
 // Add Book form validation
@@ -156,5 +156,17 @@ $(".ui.form.login").form({
 				},
 			],
 		},
+	},
+});
+
+$(".ui.reply.form.comment").form({
+	fields: {
+		identifier: "content",
+		rules: [
+			{
+				type: "empty",
+				prompt: "Write messege.",
+			},
+		],
 	},
 });

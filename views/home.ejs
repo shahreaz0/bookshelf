@@ -1,8 +1,9 @@
 <%- include("./partials/top") %>
 
 
-<section id="header">
-  <h1>Bookshelf</h1>
+<section id="header" class="header-section">
+  <h1 class="header-section__title">Bookshelf</h1>
+  <p class="header-section__text">Share and find PDF books</p>
 </section>
 
 
@@ -37,7 +38,7 @@
       </div>
 
       <div class="extra content">
-        <span class="like-section right floated">
+        <span class="right floated">
           <i class="heart like icon <%= !book.likedUsers.includes(locals.user && user.id) && "outline" %> <%= !user && "disable" %>" data-bookid="<%= book._id %>" data-userid="<%= locals.user && user.id %>"></i> 
 
           <span class="like-section" data-user="<%= book._id %>" data-span="<%= book._id %>"><%= book.likes %> likes</span>

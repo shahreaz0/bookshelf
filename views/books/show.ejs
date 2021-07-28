@@ -51,8 +51,8 @@
         <% if (book.language) { %>
         <a class="ui label"><%= capitalize(book.language) %> </a>
         <% } %>
-        <% if (book.pageNo) { %>
-        <a class="ui label"><%= book.pageNo %> pages</a>
+        <% if (book.genre) { %>
+        <a class="ui label"><%= book.genre %></a>
         <% } %>
         <% if (!book.language && !book.pageNo) { %>
         <a class="ui label">No details</a>
@@ -118,11 +118,12 @@
 
     <div class="ui grid">
       <div class="sixteen wide mobile eight wide computer column">
-        <form class="ui reply form" action="/books/<%= book._id %>/comments" method="POST">
+        <form class="ui reply form comment" action="/books/<%= book._id %>/comments" method="POST">
           <div class="field">
             <textarea rows="2" name="content"></textarea>
           </div>
           <button class="ui grey button">Comment</button>
+          <div class="ui error message"></div>
         </form>
       </div>
     </div>

@@ -1,6 +1,6 @@
-/*  */
-
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
 * {
 	box-sizing: border-box;
 }
@@ -11,17 +11,23 @@
 	pointer-events: none;
 }
 
-#header {
+.header-section {
 	background-color: tomato;
 	color: white;
 	padding: 3rem;
+	text-align: center;
 }
 
-#header h1 {
+.header-section__title {
 	font-size: 3rem;
-	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 6px;
+}
+
+.header-section__text {
+	font-family: Poppins;
+	font-weight: 400;
+	font-size: 1.1rem;
 }
 
 .book-edit-button,
@@ -103,6 +109,22 @@
 }
 .google-btn:active {
 	background: #1669f2;
+}
+
+/* error.ejs */
+
+.error-section {
+	margin-top: 6rem;
+	text-align: center;
+}
+
+.error-section__title {
+	color: tomato;
+	margin: 0;
+}
+
+.error-section__text {
+	font-size: 1.2rem;
 }
 
 /* ==================== fomantic overwrites ============ */

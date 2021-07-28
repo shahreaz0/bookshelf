@@ -28,6 +28,13 @@ router.get("/books", async (req, res) => {
 				.where("author")
 				.regex(new RegExp(req.query.author, "i"));
 		}
+
+		if (req.query.genre) {
+			query = query
+				.where("genre")
+				.regex(new RegExp(req.query.genre, "i"));
+		}
+
 		if (req.query.publishAfter) {
 			query = query.where("publishDate").gte(req.query.publishAfter);
 		}
@@ -84,7 +91,7 @@ router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 			title: req.body.title,
 			author: req.body.author,
 			description: req.body.description,
-			pageNo: req.body.pageNo,
+			genre: req.body.genre,
 			language: req.body.language,
 			status: req.body.status,
 			creator: req.user._id,
@@ -152,7 +159,7 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 		if (req.body.title) book.title = req.body.title;
 		if (req.body.author) book.author = req.body.author;
 		if (req.body.description) book.description = req.body.description;
-		if (req.body.pageNo) book.pageNo = req.body.pageNo;
+		if (req.body.genre) book.genre = req.body.genre;
 		if (req.body.language) book.language = req.body.language;
 		if (req.body.status) book.status = req.body.status;
 		if (req.body.publishDate) book.publishDate = req.body.publishDate;
@@ -208,9 +215,13 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 router.delete("/books/:id", isBookOwner, async (req, res) => {
 	try {
 		const book = await Book.findById(req.params.id);
+		const user = await User.findById(req.user.id);
 		// remove cover img and pdf book from cloudinary
 		await cloudinary.uploader.destroy(book.coverImg.cloudinary_id);
 		await cloudinary.uploader.destroy(book.pdfBook.cloudinary_id);
+		// remove posts id from user
+		user.posts = user.posts.filter((e) => !e.equals(req.params.id));
+		await user.save();
 		// remove book from database
 		await book.remove();
 		req.flash("success", "Post deleted.");
