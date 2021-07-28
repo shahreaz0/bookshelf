@@ -131,7 +131,6 @@ router.get("/books/:id", async (req, res) => {
 
 		res.render("books/show", { pageTitle: book.title, book });
 	} catch (error) {
-		console.log(error);
 		res.redirect("/books");
 	}
 });
@@ -142,7 +141,6 @@ router.get("/books/:id/edit", isBookOwner, async (req, res) => {
 		const book = await Book.findById(req.params.id);
 		res.render("books/edit", { pageTitle: book.title, book });
 	} catch (error) {
-		console.log(error);
 		res.redirect("/books");
 	}
 });

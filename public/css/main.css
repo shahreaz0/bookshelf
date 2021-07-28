@@ -7,6 +7,10 @@
 
 /* home.ejs */
 
+.disable {
+	pointer-events: none;
+}
+
 #header {
 	background-color: tomato;
 	color: white;

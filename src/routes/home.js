@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
 			.exec();
 
 		res.render("home", {
-			pageTitle: "Paperback",
+			pageTitle: "Bookshelf",
 			books: recentBooks,
 			path: req.path,
 		});

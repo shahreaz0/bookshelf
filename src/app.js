@@ -24,6 +24,7 @@ app.set("views", path.join("views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join("public")));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(
 	session({
@@ -59,6 +60,7 @@ app.use((req, res, next) => {
 app.use(require("./routes/home"));
 app.use(require("./routes/auth"));
 app.use(require("./routes/books"));
+app.use(require("./routes/likes"));
 app.use(require("./routes/comments"));
 app.use(require("./routes/profile"));
 

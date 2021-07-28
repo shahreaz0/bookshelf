@@ -59,7 +59,15 @@ const bookSchema = mongoose.Schema(
 		likes: {
 			type: Number,
 			default: 0,
+			min: 0,
 		},
+
+		likedUsers: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Comment",
+			},
+		],
 	},
 	{
 		timestamps: true,

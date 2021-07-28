@@ -21,11 +21,11 @@
       <!-- left menu -->
       <% if (user) { %>
       <a class="item <%= locals.path && path === "/" && "active" %>" href="/">Home</a>
-      <a class="item <%= locals.path && path === "/books" && "active" %>" href="/books">Books</a>
-      <a class="item <%= locals.path && path === "/books/new" && "active" %>" href="/books/new">Add Books</a>
+      <a class="item <%= locals.path && path === "/books" && "active" %>" href="/books">All Books</a>
+      <a class="item <%= locals.path && path === "/books/new" && "active" %>" href="/books/new">Add a book</a>
       <% } else { %>
       <a class="item <%= locals.path && path === "/" && "active" %>" href="/">Home</a>
-      <a class="item <%= locals.path && path === "/books" && "active" %>" href="/books">Books</a>
+      <a class="item <%= locals.path && path === "/books" && "active" %>" href="/books">All Books</a>
       <% } %>
       <!-- right menu -->
       <div class="right menu">

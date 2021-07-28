@@ -37,8 +37,11 @@
       </div>
 
       <div class="extra content">
-        <span class="right floated">
-          <i class="heart outline like icon"></i> <%= book.likes %> likes
+        <span class="like-section right floated">
+          <i class="heart like icon <%= !book.likedUsers.includes(locals.user && user.id) && "outline" %> <%= !user && "disable" %>" data-bookid="<%= book._id %>" data-userid="<%= locals.user && user.id %>"></i> 
+
+          <span class="like-section" data-user="<%= book._id %>" data-span="<%= book._id %>"><%= book.likes %> likes</span>
+          
         </span>
         <i class="comment icon"></i> <%= book.comments.length %> comments
       </div>
