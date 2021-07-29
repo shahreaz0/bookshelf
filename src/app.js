@@ -1,12 +1,12 @@
 // modules
 const path = require("path");
 const express = require("express");
-const secure = require("ssl-express-www");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
+const redirectSSL = require("redirect-ssl");
 const dayjs = require("dayjs");
 const relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime);
@@ -21,7 +21,11 @@ require("./configs/passport");
 
 // express configs
 const app = express();
-app.use(secure);
+app.use(
+	redirectSSL.create({
+		enabled: process.env.NODE_ENV === "production",
+	})
+);
 app.set("views", path.join("views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join("public")));
