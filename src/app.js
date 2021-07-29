@@ -1,6 +1,7 @@
 // modules
 const path = require("path");
 const express = require("express");
+const secure = require("ssl-express-www");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const session = require("express-session");
@@ -20,6 +21,7 @@ require("./configs/passport");
 
 // express configs
 const app = express();
+app.use(secure);
 app.set("views", path.join("views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join("public")));
