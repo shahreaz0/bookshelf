@@ -21,4 +21,23 @@ router.get("/", async (req, res) => {
 	}
 });
 
+router.get("/:author/books", async (req, res) => {
+	try {
+		console.log(req.params.author);
+		const byAuthor = await Book.find({ author: req.params.author })
+			.populate("creator")
+			.exec();
+
+		res.render("authors/index", {
+			pageTitle: req.params.author,
+			books: byAuthor,
+			path: req.path,
+		});
+	} catch (error) {
+		res.render("404", {
+			pageTitle: "404",
+		});
+	}
+});
+
 module.exports = router;

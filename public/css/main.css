@@ -22,12 +22,19 @@
 	font-size: 3rem;
 	text-transform: uppercase;
 	letter-spacing: 6px;
+	margin: 0;
 }
 
 .header-section__text {
 	font-family: Poppins;
 	font-weight: 400;
 	font-size: 1.1rem;
+	margin: 0;
+}
+
+/* authors/index.ejs */
+.header-section__color {
+	background-color: cornflowerblue;
 }
 
 .book-edit-button,
@@ -183,9 +190,34 @@
 	margin-right: 0.5rem;
 }
 
+/*.left.menu a {
+	display: inline-block;
+}*/
+.header {
+	margin: 0;
+}
+
+.ui.menu:not(.vertical) .item {
+	align-items: center;
+}
+
 @media only screen and (max-width: 600px) {
 	.ui.card {
 		margin: 0 auto;
+	}
+
+	.ui.menu:not(.vertical) .item {
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+@media only screen and (max-width: 450px) {
+	.header-section__title {
+		font-size: 2rem;
+	}
+	.header-section__text {
+		font-size: 1rem;
 	}
 }
 

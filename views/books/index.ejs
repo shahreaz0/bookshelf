@@ -69,7 +69,7 @@
       <div class="content">
         <a class="header" href="/books/<%= book._id %>">
           <%= book.title %> </a>
-        <span id="card__author">by <a href=""><%= book.author %></a> </span>
+        <span id="card__author">by <a href="/<%= book.author %>/books"> <%= book.author %></a> </span>
       </div>
 
       <a class="image" href="/books/<%= book._id %>">

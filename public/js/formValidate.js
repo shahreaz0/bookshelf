@@ -165,7 +165,7 @@ $(".ui.reply.form.comment").form({
 		rules: [
 			{
 				type: "empty",
-				prompt: "Write messege.",
+				prompt: "There is no comment",
 			},
 		],
 	},
