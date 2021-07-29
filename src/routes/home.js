@@ -23,7 +23,6 @@ router.get("/", async (req, res) => {
 
 router.get("/:author/books", async (req, res) => {
 	try {
-		console.log(req.params.author);
 		const byAuthor = await Book.find({ author: req.params.author })
 			.populate("creator")
 			.exec();
