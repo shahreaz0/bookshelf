@@ -1,6 +1,11 @@
-// froala editor
-new FroalaEditor("textarea#add-book-textarea");
-new FroalaEditor("textarea#edit-book-textarea");
+// CKEditor editor
+ClassicEditor.create(document.querySelector("#add-book-textarea")).catch(
+	(error) => console.error(error)
+);
+
+ClassicEditor.create(document.querySelector("#edit-book-textarea")).catch(
+	(error) => console.error(error)
+);
 
 // tippy.js
 tippy("#tooltip", {});
