@@ -203,6 +203,7 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 
 		// empty uploads folder
 		fs.emptyDirSync(path.join("public", "uploads"));
+
 		// save
 		await book.save();
 		req.flash("success", "Post updated.");
