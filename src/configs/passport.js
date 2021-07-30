@@ -16,7 +16,7 @@ passport.use(
 		{
 			clientID: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-			callbackURL: "/auth/google/cb",
+			callbackURL: "https://bookshelf-go.herokuapp.com/auth/google/cb",
 		},
 		async (accessToken, refreshToken, profile, done) => {
 			try {
