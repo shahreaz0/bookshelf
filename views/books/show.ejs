@@ -78,6 +78,11 @@
       Comments
     </h4>
 
+    <% if (book.comments.length === 0) { %>
+      <h4>No Comment in this post.</h4>
+    <% } %>
+
+
     <% book.comments.forEach(comment => { %>
 
     <div class="ui comments">

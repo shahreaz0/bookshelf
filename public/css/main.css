@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
 * {
@@ -69,6 +69,15 @@
 
 #comment-delete-button:hover {
 	color: #444;
+}
+
+/* show books */
+#book-description p {
+	line-height: 1.8;
+	font-family: roboto;
+	font-size: 1.1rem;
+	text-align: justify;
+	font-weight: 400;
 }
 
 /* google button */
@@ -194,7 +203,7 @@
 	display: inline-block;
 }*/
 .header {
-	margin: 0;
+	margin-bottom: 0.5rem;
 }
 
 .ui.menu:not(.vertical) .item {

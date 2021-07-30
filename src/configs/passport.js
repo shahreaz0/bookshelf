@@ -15,7 +15,6 @@ let redirectUri = "/auth/google/cb";
 if (process.env.NODE_ENV === "production")
 	redirectUri = "https://bookshelf-go.herokuapp.com/auth/google/cb";
 
-console.log(redirectUri);
 passport.use(
 	new GoogleStrategy(
 		{
