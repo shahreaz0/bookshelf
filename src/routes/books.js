@@ -81,7 +81,7 @@ router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 			}
 		);
 
-		await fs.emptyDir(path.join("public", "uploads"));
+// 		await fs.emptyDir(path.join("public", "uploads"));
 
 		// new book
 		const book = new Book({
@@ -197,7 +197,7 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 		}
 
 		// empty uploads folder
-		await fs.emptyDir(path.join("public", "uploads"));
+// 		await fs.emptyDir(path.join("public", "uploads"));
 		// save
 		await book.save();
 		req.flash("success", "Post updated.");
