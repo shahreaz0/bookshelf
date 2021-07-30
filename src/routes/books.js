@@ -64,6 +64,8 @@ router.get("/books", async (req, res) => {
 });
 
 // POST --> /books --> Create books
+let deletePdf;
+let deleteImg;
 router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 	try {
 		const img = await cloudinary.uploader.upload(
@@ -81,7 +83,10 @@ router.post("/books", isLoggedIn, multipleUploads, async (req, res) => {
 			}
 		);
 
-		await fs.emptyDir(path.join("public", "uploads"));
+		deleteImg = img.public_id;
+		deletePdf = pdf.public_id;
+
+		fs.emptyDirSync(path.join("public", "uploads"));
 
 		// new book
 		const book = new Book({
@@ -197,7 +202,7 @@ router.put("/books/:id", isBookOwner, multipleUploads, async (req, res) => {
 		}
 
 		// empty uploads folder
-		await fs.emptyDir(path.join("public", "uploads"));
+		fs.emptyDirSync(path.join("public", "uploads"));
 		// save
 		await book.save();
 		req.flash("success", "Post updated.");
