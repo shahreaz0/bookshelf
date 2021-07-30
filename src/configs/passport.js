@@ -11,12 +11,17 @@ passport.deserializeUser(User.deserializeUser());
 passport.use(new LocalStrategy(User.authenticate()));
 
 //passport-google-oauth20
+let redirectUri = "/auth/google/cb";
+if (process.env.NODE_ENV === "production")
+	redirectUri = "https://bookshelf-go.herokuapp.com/auth/google/cb";
+
+console.log(redirectUri);
 passport.use(
 	new GoogleStrategy(
 		{
 			clientID: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-			callbackURL: "https://bookshelf-go.herokuapp.com/auth/google/cb",
+			callbackURL: redirectUri,
 		},
 		async (accessToken, refreshToken, profile, done) => {
 			try {
@@ -28,7 +33,10 @@ passport.use(
 
 				// if user not exists create new user
 				const newUser = new User({
-					username: profile.displayName.toLowerCase().split(" ").join("_"),
+					username: profile.displayName
+						.toLowerCase()
+						.split(" ")
+						.join("_"),
 					fullName: profile.displayName,
 					googleId: profile.id,
 					thumbnail: profile.photos[0].value,
@@ -40,6 +48,6 @@ passport.use(
 			} catch (err) {
 				console.log(err);
 			}
-		},
-	),
+		}
+	)
 );

@@ -10,8 +10,6 @@ const dayjs = require("dayjs");
 const relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime);
 const flash = require("connect-flash");
-const http = require("http");
-const enforce = require("express-sslify");
 if (!(process.env.NODE_ENV === "production")) require("dotenv").config();
 
 // mongodb config
@@ -22,7 +20,6 @@ require("./configs/passport");
 
 // express configs
 const app = express();
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.set("views", path.join("views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join("public")));
