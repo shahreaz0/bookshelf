@@ -80,6 +80,10 @@
 	font-weight: 400;
 }
 
+.ui.grid.show {
+	margin-top: auto;
+}
+
 /* google button */
 .google-btn {
 	width: 100%;
