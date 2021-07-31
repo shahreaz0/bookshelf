@@ -33,7 +33,9 @@
         <img class="ui avatar image" src="<%= book.creator.thumbnail %>">
 
         <a id="tooltip" href="/profile/<%= book.creator._id %>" data-tippy-content="<%= book.creator.username%>">
-          <%= book.creator.username.length <= 8 ? book.creator.username : book.creator.username.substring(0, 8) %>... 
+          <%= locals.user && book.creator._id.equals(user.id) 
+          ? "You" 
+          : book.creator.username.length <= 8 ? book.creator.username : book.creator.username.substring(0, 8) + "..." %> 
         </a>
       </div>
 
