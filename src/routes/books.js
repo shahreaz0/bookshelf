@@ -10,7 +10,7 @@ const User = require("../models/User");
 const { isLoggedIn, isBookOwner } = require("../configs/middleware");
 
 // configs
-const multipleUploads = require("../configs/fileUpload");
+const multipleUploads = require("../configs/multer");
 const cloudinary = require("../configs/cloudinary");
 
 // GET --> /books --> Shows All books
